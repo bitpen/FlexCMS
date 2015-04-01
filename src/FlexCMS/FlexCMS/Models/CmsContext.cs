@@ -40,6 +40,11 @@ namespace FlexCMS.BLL
 
 
         /// <summary>
+        /// Custom page definitions
+        /// </summary>
+        public DbSet<Page> Pages { get; set; }
+
+        /// <summary>
         /// Custom routes for use by the content system
         /// </summary>
         public DbSet<Route> Routes { get; set; }

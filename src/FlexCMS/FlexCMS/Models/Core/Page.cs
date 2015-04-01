@@ -26,6 +26,12 @@ namespace FlexCMS.Models.Core
         [Required(ErrorMessage = "Name is required for all pages")]
         public String Name { get; set;}
 
+        /// <summary>
+        /// Content Type to specify how the page should be built
+        /// </summary>
+        [RegularExpression("[12]{1}", ErrorMessage = "Invalid Content Type.")]
+        [Required(ErrorMessage = "Content Type is required.")]
+        public int ContentTypeId { get; set; }
 
         /// <summary>
         /// Main content of the page
