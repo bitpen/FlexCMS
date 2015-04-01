@@ -123,6 +123,36 @@ namespace FlexCMS.BLL.Core
         }
 
         /// <summary>
+        /// Retrieve a route from the datastore
+        /// </summary>
+        /// <param name="path">Full path of the route</param>
+        /// <returns>Null if the route could not be found</returns>
+        public static RouteBLM Get(string path)
+        {
+            Route data;
+            var route = new RouteBLM();
+            var cleanedPath = CleanRoutePath(path);
+            using (var db = new CmsContext())
+            {
+                using (var transaction = new TransactionScope())
+                {
+                    data = db.Routes.FirstOrDefault(i => i.Path.Equals(cleanedPath));
+                }
+            }
+
+            if (data == null)
+            {
+                return null;
+            }
+
+            route.Id = data.Id;
+            route.Path = data.Path;
+            route.Description = data.Description;
+
+            return route;
+        }
+
+        /// <summary>
         /// Update an existing route in the system
         /// </summary>
         /// <param name="routeId">Primary key of the route</param>
@@ -170,7 +200,7 @@ namespace FlexCMS.BLL.Core
         /// </summary>
         /// <param name="route"></param>
         /// <returns></returns>
-        private String CleanRoutePath(string route)
+        private static String CleanRoutePath(string route)
         {
             var cleanedRoute = route.Trim().ToLower();
             if (cleanedRoute.StartsWith(@"/"))
