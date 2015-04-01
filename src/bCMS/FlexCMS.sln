@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexCMS", "FlexCMS\FlexCMS.csproj", "{710E9F42-9B14-40F9-A870-ADA7BE6E13A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bCommon", "..\bCommon\bCommon\bCommon.csproj", "{BADC1A8E-9F91-46DC-9626-71A604F914E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{710E9F42-9B14-40F9-A870-ADA7BE6E13A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{710E9F42-9B14-40F9-A870-ADA7BE6E13A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{710E9F42-9B14-40F9-A870-ADA7BE6E13A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{710E9F42-9B14-40F9-A870-ADA7BE6E13A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BADC1A8E-9F91-46DC-9626-71A604F914E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BADC1A8E-9F91-46DC-9626-71A604F914E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BADC1A8E-9F91-46DC-9626-71A604F914E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BADC1A8E-9F91-46DC-9626-71A604F914E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

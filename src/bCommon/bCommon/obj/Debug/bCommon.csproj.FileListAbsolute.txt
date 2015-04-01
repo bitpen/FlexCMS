@@ -3,3 +3,7 @@ e:\mydocuments\visual studio 2013\Projects\bCommon\bCommon\bin\Debug\bCommon.pdb
 e:\mydocuments\visual studio 2013\Projects\bCommon\bCommon\obj\Debug\bCommon.dll
 e:\mydocuments\visual studio 2013\Projects\bCommon\bCommon\obj\Debug\bCommon.pdb
 E:\MyDocuments\Visual Studio 2013\Projects\bCommon\bCommon\obj\Debug\bCommon.csprojResolveAssemblyReference.cache
+E:\MyDocuments\GitHub\FlexCMS\src\bCommon\bCommon\bin\Debug\bCommon.dll
+E:\MyDocuments\GitHub\FlexCMS\src\bCommon\bCommon\bin\Debug\bCommon.pdb
+E:\MyDocuments\GitHub\FlexCMS\src\bCommon\bCommon\obj\Debug\bCommon.dll
+E:\MyDocuments\GitHub\FlexCMS\src\bCommon\bCommon\obj\Debug\bCommon.pdb

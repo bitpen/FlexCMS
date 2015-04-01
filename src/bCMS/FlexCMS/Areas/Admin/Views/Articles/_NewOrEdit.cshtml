@@ -1,0 +1,14 @@
+﻿@model FlexCMS.Areas.Admin.Controllers.ArticlesController.NewArticle
+
+<div>
+    <label>Title</label>
+    @Html.TextBoxFor(m => m.Title, new { size = 80 })
+</div>
+<div>
+    <label>Permalink</label>
+    @Html.TextBoxFor(m => m.Permalink, new { size = 80 })
+</div>
+<div>
+    <label>Article Content</label>
+    @Html.TextAreaFor(m => m.Content, new { cols = 80, rows = 40 })
+</div>

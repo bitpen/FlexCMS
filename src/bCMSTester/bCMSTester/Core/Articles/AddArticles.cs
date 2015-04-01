@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using bCMS.BLL;
-using bCMS.BLL.Core;
+using FlexCMS.BLL;
+using FlexCMS.BLL.Core;
 
-namespace bCMSTester
+namespace FlexCMSTester
 {
     [TestClass]
     public class AddArticles
@@ -16,13 +16,13 @@ namespace bCMSTester
         [TestMethod]
         public void AddValidUnpublishedArticle()
         {
-            var article = new bCMS.BLL.Core.ArticlesBO.AddArticleBLM();
+            var article = new FlexCMS.BLL.Core.ArticlesBO.AddArticleBLM();
             article.Title = "First Article";
             article.Alias = "First-Article";
 
             Guid? id;
             ArticlesBO.AddArticleBLM.ValidationErrors errors;
-            using (var uow = new UnitOfWork("bCMSTester"))
+            using (var uow = new UnitOfWork("FlexCMSTester"))
             {
                 var bo = new ArticlesBO(uow);
                  id = bo.Add(article, out errors);
