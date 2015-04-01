@@ -38,9 +38,29 @@ namespace FlexCMS.Areas.Admin.Controllers
         public ActionResult Edit(Guid id)
         {
             var data = RoutesBO.Get(id);
+            var route = new EditRoute();
+            route.RouteId = data.Id;
+            route.Path = data.Path;
+            route.Description = data.Description;
+
+            return View(route);
+        }
+
+        //POST: Process update of a route
+        [HttpPost]
+        public ActionResult Edit(EditRoute route)
+        {
+            using (var uow = new UnitOfWork(HttpContext.User.Identity.Name))
+            {
+                var bo = new RoutesBO(uow);
+                if (bo.Update(route.RouteId, route.Path, route.Description))
+                {
+                    return RedirectToAction("Index");
+                }
+            }
 
 
-            return View();
+            return View(route);
         }
 
         //
@@ -62,6 +82,11 @@ namespace FlexCMS.Areas.Admin.Controllers
         }
 
         #region View Models
+
+        public class EditRoute : NewRoute
+        {
+            public Guid RouteId { get; set; }
+        }
 
         /// <summary>
         /// New route view model

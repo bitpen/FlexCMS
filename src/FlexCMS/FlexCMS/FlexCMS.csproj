@@ -198,6 +198,9 @@
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Routes\_NewOrEdit.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Routes\Edit.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

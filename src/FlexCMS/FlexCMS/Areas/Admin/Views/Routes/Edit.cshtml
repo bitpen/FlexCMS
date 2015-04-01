@@ -1,7 +1,7 @@
-﻿@model FlexCMS.Areas.Admin.Controllers.RoutesController.NewRoute
+﻿@model FlexCMS.Areas.Admin.Controllers.RoutesController.EditRoute
 
 @{
-    ViewBag.Title = "Add New Route";
+    ViewBag.Title = "Update Route";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -10,7 +10,8 @@
 {
     @Html.ValidationSummary();
     
+    @Html.HiddenFor(m => m.RouteId)
     @Html.Partial("_NewOrEdit", Model)
-    
+
     <button type="submit">Add</button>
 }
