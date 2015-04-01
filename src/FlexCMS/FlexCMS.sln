@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexCMS", "FlexCMS\FlexCMS.csproj", "{710E9F42-9B14-40F9-A870-ADA7BE6E13A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bCommon", "..\bCommon\bCommon\bCommon.csproj", "{BADC1A8E-9F91-46DC-9626-71A604F914E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bCommon", "..\bCommon\bCommon.csproj", "{BADC1A8E-9F91-46DC-9626-71A604F914E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

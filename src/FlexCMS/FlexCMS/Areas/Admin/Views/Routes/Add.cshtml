@@ -1,0 +1,14 @@
+﻿@model FlexCMS.Areas.Admin.Controllers.RoutesController.NewRoute
+
+@{
+    ViewBag.Title = "Add New Route";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("_NewOrEdit", Model)
+    
+    <button type="submit">Add</button>
+}

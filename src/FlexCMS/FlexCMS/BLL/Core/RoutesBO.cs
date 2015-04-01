@@ -52,7 +52,6 @@ namespace FlexCMS.BLL.Core
             Guid? id;
 
             var model = new Route();
-            model.Id = Guid.NewGuid();
             model.Path = route;
             model.Description = description;
 

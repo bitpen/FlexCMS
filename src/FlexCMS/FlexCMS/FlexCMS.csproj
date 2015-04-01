@@ -163,12 +163,6 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\bCommon\bCommon\bCommon.csproj">
-      <Project>{badc1a8e-9f91-46dc-9626-71a604f914e8}</Project>
-      <Name>bCommon</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Router\SimpleRoute.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +185,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Routes\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\bCommon\bCommon.csproj">
+      <Project>{badc1a8e-9f91-46dc-9626-71a604f914e8}</Project>
+      <Name>bCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Routes\Add.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Routes\_NewOrEdit.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,5 +1,39 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@model List<FlexCMS.Areas.Admin.Controllers.RoutesController.RouteListing>
+
+@{
+    ViewBag.Title = "Route Management";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
+
+<div>
+    @Html.ActionLink("New Route", "Add")
+</div>
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Path
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var route in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.Raw(route.Path)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = route.RouteId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
