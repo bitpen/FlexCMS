@@ -1,0 +1,43 @@
+﻿@model List<bCMS.Areas.Admin.Controllers.ArticlesController.ArticleListing>
+@{
+    ViewBag.Title = "Articles";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<div>
+    @Html.ActionLink("New Article", "New")
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Date Published
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var article in Model)
+        {
+            <tr>
+                <td>
+                    @article.Title
+                </td>
+                <td>
+                    @article.DatePublished_local_display
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = article.ArticleId})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

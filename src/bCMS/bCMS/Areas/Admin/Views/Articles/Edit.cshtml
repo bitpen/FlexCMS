@@ -1,0 +1,14 @@
+﻿@model bCMS.Areas.Admin.Controllers.ArticlesController.EditArticle
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.ArticleId)
+    @Html.Partial("_NewOrEdit", Model)
+    
+    <button type="submit">Save</button>
+}
