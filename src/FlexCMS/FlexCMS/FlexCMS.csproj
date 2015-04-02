@@ -120,6 +120,8 @@
     <Compile Include="Areas\Admin\Controllers\RoutesController.cs" />
     <Compile Include="BLL\Core\ArticlesBO.cs" />
     <Compile Include="BLL\Core\ArticlesBOModels.cs" />
+    <Compile Include="BLL\Core\PagesBO.cs" />
+    <Compile Include="BLL\Core\PagesBOModels.cs" />
     <Compile Include="BLL\Core\RoutesBO.cs" />
     <Compile Include="BLL\Core\RoutesBOModels.cs" />
     <Compile Include="BLL\Core\TagsBO.cs" />

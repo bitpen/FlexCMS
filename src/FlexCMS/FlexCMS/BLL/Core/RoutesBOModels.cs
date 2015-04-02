@@ -5,6 +5,11 @@ using System.Web;
 
 namespace FlexCMS.BLL.Core
 {
+
+    /// <summary>
+    /// Business Layer Models contracts for use when interacting with 
+    /// an RoutesBO instance
+    /// </summary>
     public partial class RoutesBO
     {
         public class RouteBLM

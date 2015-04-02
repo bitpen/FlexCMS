@@ -55,15 +55,15 @@ namespace FlexCMS.BLL.Core
 
             errors = article.CreateValidationErrorsCollection();
 
-            if (errors.Any())
-            {
-                return null;
-            }
-
             Guid? id = null;
             try
             {
                 errors = ValidateAddArticle(article);
+
+                if (errors.Any())
+                {
+                    return null;
+                }
                 
                 var model = new Article();
                 model.Id = Guid.NewGuid();

@@ -9,7 +9,7 @@ namespace FlexCMS.BLL.Core
     /// Business Layer object for interacting with the datastore 
     /// in relation to Custom pages
     /// </summary>
-    public class PagesBO
+    public partial class PagesBO
     {
         
         /// <summary>
@@ -35,6 +35,21 @@ namespace FlexCMS.BLL.Core
             }
             _uow = uow;
             _cmsContext = _uow.GetCmsContext();
+        }
+
+        /// <summary>
+        /// Add a new page to the datastore
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="errors"></param>
+        /// <returns></returns>
+        public Guid? Add(AddPageBLM page, out AddPageBLM.ValidationErrors errors)
+        {
+            Guid? id = null;
+
+            errors = page.CreateValidationErrorsCollection();
+
+            return id;
         }
     }
 }
