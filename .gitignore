@@ -43,7 +43,7 @@ Temporary Items
 .apdisk
 
 # Build files
-src/bCommon/bin
-src/bCommon/obj/Debug
-src/FlexCMS/FlexCMS/bin
-src/FlexCMS/FlexCMS/obj
+src/bCommon/bin/**
+src/bCommon/obj/Debug/**
+src/FlexCMS/FlexCMS/bin/**
+src/FlexCMS/FlexCMS/obj/**
