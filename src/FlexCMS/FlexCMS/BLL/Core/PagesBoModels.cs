@@ -25,5 +25,27 @@ namespace FlexCMS.BLL.Core
                 RouteId = 3
             }
         }
+
+        public class UpdatePageBLM : AddPageBLM
+        {
+            public Guid Id { get; set; }
+        }
+
+        public class PageBLM : UpdatePageBLM
+        {
+            public DateTime DateCreated_utc { get; set; }
+            public DateTime? DateModified_utc { get; set; }
+            public DateTime? DatePublished_utc { get; set; }
+
+            public String CreatedBy { get; set; }
+            public String ModifiedBy { get; set; }
+            public String PublishedBy { get; set; }
+        }
+
+        public class PageSummaryBLM
+        {
+            public Guid Id { get; set; }
+            public String Name { get; set; }
+        }
     }
 }

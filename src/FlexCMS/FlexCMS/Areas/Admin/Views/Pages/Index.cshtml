@@ -1,0 +1,38 @@
+﻿@model List<FlexCMS.Areas.Admin.Controllers.PagesController.PageListing>
+
+@{
+    ViewBag.Title = "Pages";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    @Html.ActionLink("New Page", "Add")
+</div>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var page in Model)
+            {
+                <tr>
+                    <td>
+                        @page.Name
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Update", new {id = page.PageId})
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
