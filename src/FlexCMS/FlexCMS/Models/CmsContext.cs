@@ -44,10 +44,17 @@ namespace FlexCMS.BLL
         /// </summary>
         public DbSet<Page> Pages { get; set; }
 
+
         /// <summary>
         /// Custom routes for use by the content system
         /// </summary>
         public DbSet<Route> Routes { get; set; }
+
+        /// <summary>
+        /// Site Section storage repository
+        /// </summary>
+        public DbSet<Section> Sections { get; set; }
+
 
         /// <summary>
         /// Tag storage repository

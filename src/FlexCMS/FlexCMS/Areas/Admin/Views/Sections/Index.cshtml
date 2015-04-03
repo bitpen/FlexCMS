@@ -1,0 +1,38 @@
+﻿@model List<FlexCMS.Areas.Admin.Controllers.SectionsController.SectionListing>
+
+@{
+    ViewBag.Title = "Sections";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    @Html.ActionLink("New Section", "Add")
+</div>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.SectionId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,14 @@
+﻿@model  FlexCMS.Areas.Admin.Controllers.SectionsController.AddSection
+
+@{
+    ViewBag.Title = "New Section";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("_NewOrEdit", Model)
+
+    <button type="submit">Save</button>
+}

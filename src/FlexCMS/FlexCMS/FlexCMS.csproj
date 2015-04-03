@@ -119,12 +119,15 @@
     <Compile Include="Areas\Admin\Controllers\ArticlesController.cs" />
     <Compile Include="Areas\Admin\Controllers\PagesController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoutesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SectionsController.cs" />
     <Compile Include="BLL\Core\ArticlesBO.cs" />
     <Compile Include="BLL\Core\ArticlesBOModels.cs" />
     <Compile Include="BLL\Core\PagesBO.cs" />
     <Compile Include="BLL\Core\PagesBOModels.cs" />
     <Compile Include="BLL\Core\RoutesBO.cs" />
     <Compile Include="BLL\Core\RoutesBOModels.cs" />
+    <Compile Include="BLL\Core\SectionsBO.cs" />
+    <Compile Include="BLL\Core\SectionsBOModels.cs" />
     <Compile Include="BLL\Core\TagsBO.cs" />
     <Compile Include="BLL\UnitOfWork.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -136,6 +139,7 @@
     <Compile Include="Models\Core\Article.cs" />
     <Compile Include="Models\Core\Page.cs" />
     <Compile Include="Models\Core\Route.cs" />
+    <Compile Include="Models\Core\Section.cs" />
     <Compile Include="Models\Core\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -215,6 +219,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Pages\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Sections\Add.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Sections\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Sections\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Sections\_NewOrEdit.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

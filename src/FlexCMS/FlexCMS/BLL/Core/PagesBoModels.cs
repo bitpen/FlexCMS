@@ -18,7 +18,7 @@ namespace FlexCMS.BLL.Core
             public String Content { get; set; }
             public Guid RouteId { get; set; }
 
-            public enum ValidatableFields
+            public new enum ValidatableFields
             {
                 General = 1,
                 Name = 2,
