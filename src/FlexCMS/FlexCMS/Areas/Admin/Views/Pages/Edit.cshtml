@@ -1,0 +1,17 @@
+﻿@model  FlexCMS.Areas.Admin.Controllers.PagesController.EditPage
+
+@{
+    ViewBag.Title = "Edit Page";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.PageId)
+    @Html.Partial("_NewOrEdit", Model)
+
+    <button type="submit">Save</button>
+}
+

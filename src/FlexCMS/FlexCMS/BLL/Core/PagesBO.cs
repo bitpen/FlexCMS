@@ -61,14 +61,22 @@ namespace FlexCMS.BLL.Core
             model.Content = page.Content;
             model.DateCreated_utc = DateTime.UtcNow;
             model.CreatedBy = _cmsContext.ContextUserName;
-            using (var transaction = new TransactionScope())
+            try
             {
-                _cmsContext.Pages.Add(model);
-                _cmsContext.SaveChanges();
-                transaction.Complete();
+                using (var transaction = new TransactionScope())
+                {
+                    _cmsContext.Pages.Add(model);
+                    _cmsContext.SaveChanges();
+                    transaction.Complete();
 
-                id = model.Id;
+                    id = model.Id;
+                }
             }
+            catch (Exception ex)
+            {
+
+            }
+            
 
             return id;
         }

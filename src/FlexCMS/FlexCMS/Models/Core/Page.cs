@@ -36,7 +36,7 @@ namespace FlexCMS.Models.Core
         /// <summary>
         /// Timestamp the page was originally created
         /// </summary>
-        [Required(ErrorMessage = "Creation Date is required."]
+        [Required(ErrorMessage = "Creation Date is required.")]
         public DateTime DateCreated_utc { get; set; }
 
 
@@ -44,7 +44,7 @@ namespace FlexCMS.Models.Core
         /// Party responsible for the creation of the page
         /// </summary>
         [MaxLength(50, ErrorMessage = "The maximum lenth of created by is 50 characters.")]
-        [Required(ErrorMessage = "CreatedBy is required"]
+        [Required(ErrorMessage = "CreatedBy is required")]
         public string CreatedBy { get; set; }
 
 
@@ -58,7 +58,6 @@ namespace FlexCMS.Models.Core
         /// Party responsible for the last edit
         /// </summary>
         [MaxLength(50, ErrorMessage = "The maximum lenth of ModifiedBy is 50 characters.")]
-        [Required(ErrorMessage = "ModifiedBy is required"]
         public string ModifiedBy { get; set; }
 
         /// <summary>
@@ -71,7 +70,6 @@ namespace FlexCMS.Models.Core
         /// Party responsible for the published page
         /// </summary>
         [MaxLength(50, ErrorMessage = "The maximum lenth of PublishedBy is 50 characters.")]
-        [Required(ErrorMessage = "PublishedBy is required"]
         public string PublishedBy { get; set; }
     }
 }

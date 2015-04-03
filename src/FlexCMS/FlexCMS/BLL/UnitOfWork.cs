@@ -5,7 +5,7 @@ using System.Web;
 
 namespace FlexCMS.BLL
 {
-    public partial class UnitOfWork : IDisposable
+    public class UnitOfWork : IDisposable
     {
         private CmsContext _cmsContext;
 
