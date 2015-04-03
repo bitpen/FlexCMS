@@ -70,7 +70,7 @@ namespace FlexCMS.BLL.Core
                 MapEditableBLMContentToModel(article, ref model);
                 model.DateCreated_utc = DateTime.UtcNow;
                 model.CreatedBy = _cmsContext.ContextUserName;
-
+                
                 using (var transaction = new TransactionScope())
                 {
                     _cmsContext.Articles.Add(model);
@@ -142,6 +142,7 @@ namespace FlexCMS.BLL.Core
                 article.Title = model.Title;
                 article.Alias = model.Alias;
                 article.Content = model.Content;
+                article.SectionId = model.SectionId;
             }
             catch (Exception ex)
             {
@@ -266,6 +267,7 @@ namespace FlexCMS.BLL.Core
             model.Title = article.Title;
             model.Alias = article.Alias;
             model.Content = article.Content;
+            model.SectionId = article.SectionId;
         }
 
         /// <summary>

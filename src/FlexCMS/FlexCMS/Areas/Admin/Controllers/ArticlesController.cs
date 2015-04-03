@@ -27,7 +27,17 @@ namespace FlexCMS.Areas.Admin.Controllers
         public ActionResult New()
         {
             var view = new NewArticle();
+            var sections = SectionsBO.Find();
+            view.AvailableSections = sections.Select(i => new SectionsController.SectionListing()
+            {
+                SectionId = i.Id,
+                Name = i.Name
+            }).ToList();
+
+
             return View(view);
+
+
         }
 
         //POST: Add new article
@@ -35,14 +45,15 @@ namespace FlexCMS.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult New(NewArticle article)
         {
+            
+            var add = new ArticlesBO.AddArticleBLM();
+            add.Title = article.Title;
+            add.Alias = article.Permalink;
+            add.Content = article.Content;
+            add.SectionId = article.SectionId;
             using (var uow = new UnitOfWork("jt"))
             {
                 var articleBO = new ArticlesBO(uow);
-                var add = new ArticlesBO.AddArticleBLM();
-                add.Title = article.Title;
-                add.Alias = article.Permalink;
-                add.Content = article.Content;
-
                 ArticlesBO.AddArticleBLM.ValidationErrors errors;
                 var id = articleBO.Add(add, out errors);
 
@@ -65,6 +76,14 @@ namespace FlexCMS.Areas.Admin.Controllers
             view.Title = article.Title;
             view.Permalink = article.Alias;
             view.Content = article.Content;
+            view.SectionId = article.SectionId;
+
+            var sections = SectionsBO.Find();
+            view.AvailableSections = sections.Select(i => new SectionsController.SectionListing()
+            {
+                SectionId = i.Id,
+                Name = i.Name
+            }).ToList();
 
             return View(view);
         }
@@ -74,16 +93,20 @@ namespace FlexCMS.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(EditArticle article)
         {
+            
+            var update = new ArticlesBO.UpdateArticleBLM();
+            update.Id = article.ArticleId;
+            update.Title = article.Title;
+            update.Alias = article.Permalink;
+            update.Content = article.Content;
+            update.SectionId = article.SectionId;
+            
+
+            ArticlesBO.UpdateArticleBLM.ValidationErrors errors;
             using (var uow = new UnitOfWork("jt"))
             {
-                var articlesBO = new ArticlesBO(uow);
-                var update = new ArticlesBO.UpdateArticleBLM();
-                update.Id = article.ArticleId;
-                update.Title = article.Title;
-                update.Alias = article.Permalink;
-                update.Content = article.Content;
 
-                ArticlesBO.UpdateArticleBLM.ValidationErrors errors;
+                var articlesBO = new ArticlesBO(uow);
                 articlesBO.Update(update, out errors);
 
                 if (!errors.Any())
@@ -145,9 +168,17 @@ namespace FlexCMS.Areas.Admin.Controllers
         /// </summary>
         public class NewArticle
         {
+            public NewArticle()
+            {
+                AvailableSections = new List<SectionsController.SectionListing>();
+            }
+
             public String Title { get; set; }
             public String Permalink { get; set; }
             public String Content { get; set; }
+            public Guid SectionId { get; set; }
+
+            public List<SectionsController.SectionListing> AvailableSections;
         }
 
         #endregion View Models

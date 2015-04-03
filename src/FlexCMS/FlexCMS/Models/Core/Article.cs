@@ -40,6 +40,10 @@ namespace FlexCMS.Models.Core
         [MaxLength]
         public String Content { get; set; }
 
+
+        [Required(ErrorMessage = "Every article must belong to a site section")]
+        public Guid SectionId { get; set; }
+
         /// <summary>
         /// Timestamp the article was first commited to storage
         /// </summary>
