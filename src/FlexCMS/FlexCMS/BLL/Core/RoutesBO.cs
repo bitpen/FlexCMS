@@ -52,7 +52,7 @@ namespace FlexCMS.BLL.Core
             Guid? id;
 
             var model = new Route();
-            model.Path = route;
+            model.Path = cleanedRoute;
             model.Description = description;
 
             if (_cmsContext.Routes.Any(i => i.Path.Equals(cleanedRoute)))
@@ -180,7 +180,7 @@ namespace FlexCMS.BLL.Core
             }
 
             var model = _cmsContext.Routes.Find(routeId);
-            model.Path = route;
+            model.Path = cleanedRoute;
             model.Description = description;
 
             using (var transaction = new TransactionScope())
@@ -203,9 +203,14 @@ namespace FlexCMS.BLL.Core
         private static String CleanRoutePath(string route)
         {
             var cleanedRoute = route.Trim().ToLower();
-            if (cleanedRoute.StartsWith(@"/"))
+            while (cleanedRoute.StartsWith(@"/"))
             {
                 cleanedRoute = cleanedRoute.Substring(1);
+            }
+
+            while (cleanedRoute.EndsWith(@"/"))
+            {
+                cleanedRoute = cleanedRoute.Substring(0, cleanedRoute.Length - 1);
             }
 
             return cleanedRoute;

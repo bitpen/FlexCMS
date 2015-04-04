@@ -22,6 +22,7 @@ namespace FlexCMS.Areas.Admin.Controllers
             var blm = new SectionsBO.AddSectionBLM();
             blm.Name = section.Name;
             blm.Description = section.Description;
+            blm.Route = section.RoutePath;
             SectionsBO.AddSectionBLM.ValidationErrors errors;
             Guid? id;
             using (var uow = new UnitOfWork("jt"))
@@ -60,6 +61,8 @@ namespace FlexCMS.Areas.Admin.Controllers
             view.SectionId = section.Id;
             view.Name = section.Name;
             view.Description = section.Description;
+            view.RoutePath = section.Route;
+
             return View(view);
         }
 
@@ -93,6 +96,7 @@ namespace FlexCMS.Areas.Admin.Controllers
         {
             public string Name { get; set; }
             public String Description { get; set; }
+            public String RoutePath { get; set; }
         }
 
         public class EditSection : AddSection

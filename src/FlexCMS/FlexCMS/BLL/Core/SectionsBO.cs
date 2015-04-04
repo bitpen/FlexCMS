@@ -1,6 +1,7 @@
 ﻿using FlexCMS.Models.Core;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Transactions;
 using System.Web;
@@ -58,21 +59,40 @@ namespace FlexCMS.BLL.Core
             var model = new Section();
             model.Name = section.Name;
             model.Description = section.Description;
-            try
+
+            using (var transaction = new TransactionScope())
             {
-                using (var transaction = new TransactionScope())
+                _cmsContext.Sections.Add(model);
+                _cmsContext.SaveChanges();
+
+                var routesBO = new RoutesBO(_uow);
+                var routeId = routesBO.Add(section.Route, null);
+
+                if (routeId == null)
                 {
-                    _cmsContext.Sections.Add(model);
-                    _cmsContext.SaveChanges();
-                    transaction.Complete();
-
-                    id = model.Id;
+                    errors.Add(AddSectionBLM.ValidatableFields.Route, "Unable to create new route.");
+                    return null;
                 }
-            }
-            catch (Exception ex)
-            {
 
+
+                var sql = @"INSERT INTO RouteToSection(RouteId, SectionId) Values(@routeId, @sectionId)";
+                var parameters = new object[2];
+                parameters[0] = new SqlParameter("@routeId", routeId);
+                parameters[1] = new SqlParameter("@sectionId", model.Id);
+                var rows = _cmsContext.Database.ExecuteSqlCommand(sql, parameters);
+
+                if (rows != 1)
+                {
+                    errors.Add(AddSectionBLM.ValidatableFields.Route, "Unable to map new route.");
+                    return null;
+                }
+
+                transaction.Complete();
+
+                id = model.Id;
             }
+            
+
             
 
             return id;
@@ -95,7 +115,7 @@ namespace FlexCMS.BLL.Core
             sections = models.Select(i => new SectionSummaryBLM()
             {
                 Id = i.Id,
-                Name = i.Name
+                Name = i.Name,
             }).ToList();
 
             return sections;
@@ -108,21 +128,27 @@ namespace FlexCMS.BLL.Core
         /// <returns>Null if the page is not found</returns>
         public static SectionBLM Get(Guid id)
         {
-            Section model;
+
+            SectionBLM section;
+
+            var sql =
+@"SELECT
+TOP 1
+Section.Id AS Id,
+Section.Name AS Name,
+Section.Description AS Description,
+Route.Path AS Route
+FROM
+Section
+JOIN RouteToSection map ON Section.Id = map.SectionId
+JOIN Route ON map.RouteId = Route.Id
+WHERE Section.Id = @sectionId";
+            var parameters = new object[1];
+            parameters[0] = new SqlParameter("@sectionId", id);
             using (var db = new CmsContext())
             {
-                model = db.Sections.Find(id);
-
-                if (model == null)
-                {
-                    return null;
-                }
+                section = db.Database.SqlQuery<SectionBLM>(sql, parameters).FirstOrDefault();
             }
-
-            var section = new SectionBLM();
-            section.Id = model.Id;
-            section.Name = model.Name;
-            section.Description = model.Description;
 
             return section;
         }
