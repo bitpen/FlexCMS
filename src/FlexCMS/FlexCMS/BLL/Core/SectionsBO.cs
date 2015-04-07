@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Transactions;
 using System.Web;
 
@@ -227,9 +228,21 @@ WHERE Section.Id = @sectionId";
             {
                 errors.Add(AddSectionBLM.ValidatableFields.Name, "Section name is required.");
             }
-            else if (section.Name.Length > 50)
+            else
             {
-                errors.Add(AddSectionBLM.ValidatableFields.Name, "Maximum length of Name is 50 characters.");
+                if (section.Name.Length > 50)
+                {
+                    errors.Add(AddSectionBLM.ValidatableFields.Name, "Name length is limited to 50 characters");
+                }
+
+                if(Regex.IsMatch(section.Name, @"[^0-9A-Za-z\-]+")){
+                    errors.Add(AddSectionBLM.ValidatableFields.Name, "Invalid characters in Name.");
+                }
+            }
+
+            if (!String.IsNullOrEmpty(section.Description) && section.Description.Length > 500)
+            {
+                errors.Add(AddSectionBLM.ValidatableFields.Description, "Maximum length of Description is 500 characters.");
             }
 
             return errors;
