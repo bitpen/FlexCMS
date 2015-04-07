@@ -1,4 +1,5 @@
-﻿using FlexCMS.Models.Core;
+﻿using bCommon.Validation;
+using FlexCMS.Models.Core;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -46,7 +47,8 @@ namespace FlexCMS.BLL.Core
         /// <param name="section"></param>
         /// <param name="errors"></param>
         /// <returns></returns>
-        public Guid? Add(AddSectionBLM section, out AddSectionBLM.ValidationErrors errors)
+        public Guid? Add(AddSectionBLM section, 
+            out ValidationErrors<SectionsBO.AddSectionBLM.ValidatableFields, String> errors)
         {
             Guid? id = null;
 
@@ -189,7 +191,8 @@ WHERE Section.Id = @sectionId";
         /// <param name="section"></param>
         /// <param name="errors"></param>
         /// <returns></returns>
-        public Boolean Update(UpdateSectionBLM section, out UpdateSectionBLM.ValidationErrors errors)
+        public Boolean Update(UpdateSectionBLM section, 
+                            out ValidationErrors<SectionsBO.UpdateSectionBLM.ValidatableFields, String> errors)
         {
             errors = ValidateSection(section);
 
@@ -220,7 +223,8 @@ WHERE Section.Id = @sectionId";
         /// </summary>
         /// <param name="section"></param>
         /// <returns></returns>
-        private AddSectionBLM.ValidationErrors ValidateSection(AddSectionBLM section)
+        private ValidationErrors<SectionsBO.AddSectionBLM.ValidatableFields, String>
+                            ValidateSection(AddSectionBLM section)
         {
             var errors = section.CreateValidationErrorsCollection();
 

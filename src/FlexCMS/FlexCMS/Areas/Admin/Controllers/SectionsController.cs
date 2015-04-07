@@ -1,4 +1,5 @@
-﻿using FlexCMS.BLL;
+﻿using bCommon.Validation;
+using FlexCMS.BLL;
 using FlexCMS.BLL.Core;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace FlexCMS.Areas.Admin.Controllers
             var blm = new SectionsBO.AddSectionBLM();
             blm.Name = section.Name;
             blm.Description = section.Description;
-            SectionsBO.AddSectionBLM.ValidationErrors errors;
+            ValidationErrors<SectionsBO.AddSectionBLM.ValidatableFields, String> errors;
             Guid? id;
             using (var uow = new UnitOfWork("jt"))
             {
@@ -35,6 +36,8 @@ namespace FlexCMS.Areas.Admin.Controllers
             {
                 return RedirectToAction("Index");
             }
+
+     
 
             return View();
         }
@@ -72,7 +75,7 @@ namespace FlexCMS.Areas.Admin.Controllers
             blm.Id = section.SectionId;
             blm.Name = section.Name;
             blm.Description = section.Description;
-            SectionsBO.UpdateSectionBLM.ValidationErrors errors;
+            ValidationErrors<SectionsBO.UpdateSectionBLM.ValidatableFields, String> errors;
             Boolean success;
             using (var uow = new UnitOfWork("jt"))
             {
@@ -110,6 +113,21 @@ namespace FlexCMS.Areas.Admin.Controllers
         }
 
         #endregion View Models
+
+        #region Private Properties for Validation
+
+        private static Dictionary<SectionsBO.AddSectionBLM.ValidatableFields, String>
+            _addSectionValidationMapper = new Dictionary<SectionsBO.AddSectionBLM.ValidatableFields,string>();
+
+        static SectionsController()
+        {
+
+            _addSectionValidationMapper.Add(SectionsBO.AddSectionBLM.ValidatableFields.General, string.Empty);
+            _addSectionValidationMapper.Add(SectionsBO.AddSectionBLM.ValidatableFields.Name, "Name");
+            _addSectionValidationMapper.Add(SectionsBO.AddSectionBLM.ValidatableFields.Description, "Description");
+        }
+
+        #endregion Private Properties
 
     }
 }

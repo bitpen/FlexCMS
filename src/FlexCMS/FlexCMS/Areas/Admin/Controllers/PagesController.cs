@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FlexCMS.BLL;
+using bCommon.Validation;
 
 namespace FlexCMS.Areas.Admin.Controllers
 {
@@ -23,7 +24,7 @@ namespace FlexCMS.Areas.Admin.Controllers
             var blm = new PagesBO.AddPageBLM();
             blm.Name = page.Name;
             blm.Content = page.Content;
-            PagesBO.AddPageBLM.ValidationErrors errors;
+            ValidationErrors<PagesBO.AddPageBLM.ValidatableFields, String> errors;
             Guid? id;
             using (var uow = new UnitOfWork("jt"))
             {
@@ -71,7 +72,7 @@ namespace FlexCMS.Areas.Admin.Controllers
             blm.Id = page.PageId;
             blm.Name = page.Name;
             blm.Content = page.Content;
-            PagesBO.UpdatePageBLM.ValidationErrors errors;
+            ValidationErrors<PagesBO.UpdatePageBLM.ValidatableFields, String> errors;
             Boolean success;
             using (var uow = new UnitOfWork("jt"))
             {

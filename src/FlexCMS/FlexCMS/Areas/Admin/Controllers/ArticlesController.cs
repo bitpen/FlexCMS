@@ -1,4 +1,5 @@
-﻿using FlexCMS.BLL;
+﻿using bCommon.Validation;
+using FlexCMS.BLL;
 using FlexCMS.BLL.Core;
 using System;
 using System.Collections.Generic;
@@ -62,7 +63,7 @@ namespace FlexCMS.Areas.Admin.Controllers
             using (var uow = new UnitOfWork("jt"))
             {
                 var articleBO = new ArticlesBO(uow);
-                ArticlesBO.AddArticleBLM.ValidationErrors errors;
+                ValidationErrors<ArticlesBO.AddArticleBLM.ValidatableFields, String> errors;
                 var id = articleBO.Add(add, out errors);
 
                 if (id != null && !errors.Any())
@@ -118,7 +119,7 @@ namespace FlexCMS.Areas.Admin.Controllers
                 update.PublishDate_utc = article.PublishDate.Value.ToUniversalTime();
             }
             
-            ArticlesBO.UpdateArticleBLM.ValidationErrors errors;
+            ValidationErrors<ArticlesBO.UpdateArticleBLM.ValidatableFields, String> errors;
             using (var uow = new UnitOfWork("jt"))
             {
 

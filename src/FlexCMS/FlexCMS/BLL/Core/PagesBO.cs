@@ -1,4 +1,5 @@
-﻿using FlexCMS.Models.Core;
+﻿using bCommon.Validation;
+using FlexCMS.Models.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace FlexCMS.BLL.Core
         /// <param name="page"></param>
         /// <param name="errors"></param>
         /// <returns></returns>
-        public Guid? Add(AddPageBLM page, out AddPageBLM.ValidationErrors errors)
+        public Guid? Add(AddPageBLM page, out ValidationErrors<PagesBO.AddPageBLM.ValidatableFields, String> errors)
         {
             Guid? id = null;
 
@@ -142,7 +143,7 @@ namespace FlexCMS.BLL.Core
         /// <param name="page"></param>
         /// <param name="errors"></param>
         /// <returns></returns>
-        public Boolean Update(UpdatePageBLM page, out UpdatePageBLM.ValidationErrors errors)
+        public Boolean Update(UpdatePageBLM page, out ValidationErrors<PagesBO.UpdatePageBLM.ValidatableFields, String> errors)
         {
             errors = ValidatePage(page);
 
@@ -174,7 +175,7 @@ namespace FlexCMS.BLL.Core
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        private AddPageBLM.ValidationErrors ValidatePage(AddPageBLM page)
+        private ValidationErrors<PagesBO.AddPageBLM.ValidatableFields, String> ValidatePage(AddPageBLM page)
         {
             var errors = page.CreateValidationErrorsCollection();
 

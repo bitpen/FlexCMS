@@ -21,7 +21,6 @@ namespace FlexCMS.BLL.Core
 
             public String Name { get; set; }
             public String Description { get; set; }
-            public String Route { get; set; }
 
             /// <summary>
             /// Fields that the business layer will validate against
@@ -30,8 +29,7 @@ namespace FlexCMS.BLL.Core
             {
                 General = 1,
                 Name = 2,
-                Description = 3,
-                Route = 4
+                Description = 3
             }
         }
 

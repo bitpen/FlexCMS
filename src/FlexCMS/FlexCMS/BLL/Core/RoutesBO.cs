@@ -42,7 +42,7 @@ namespace FlexCMS.BLL.Core
         /// <param name="description">[Optional] Description of the route</param>
         /// <exception cref="ArgumentNullException">When the route is null or empty</exception>
         /// <returns>Null if route is duplicate of existing route</returns>
-        public Guid? Add(AddRouteBLM route, out AddRouteBLM.ValidationErrors errors)
+        public Guid? Add(AddRouteBLM route, out ValidationErrors<AddRouteBLM.ValidatableFields, String> errors)
         {
             if (String.IsNullOrEmpty(route.Path))
             {
@@ -260,7 +260,7 @@ namespace FlexCMS.BLL.Core
         /// <param name="path"></param>
         /// <param name="description"></param>
         /// <returns></returns>
-        private AddRouteBLM.ValidationErrors ValidateRoute(AddRouteBLM route)
+        private ValidationErrors<AddRouteBLM.ValidatableFields, String> ValidateRoute(AddRouteBLM route)
         {
             var errors = route.CreateValidationErrorsCollection();
 

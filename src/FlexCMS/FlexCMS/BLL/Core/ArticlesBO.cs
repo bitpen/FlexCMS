@@ -1,4 +1,5 @@
-﻿using FlexCMS.Models.Core;
+﻿using bCommon.Validation;
+using FlexCMS.Models.Core;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -45,8 +46,8 @@ namespace FlexCMS.BLL.Core
         /// <param name="add"></param>
         /// <param name="errors"></param>
         /// <returns>Primary key of the new article</returns>
-        public Guid? Add(AddArticleBLM article, 
-                        out AddArticleBLM.ValidationErrors errors)
+        public Guid? Add(AddArticleBLM article,
+                        out ValidationErrors<AddArticleBLM.ValidatableFields, String> errors)
         {
             if (article == null)
             {
@@ -163,7 +164,7 @@ namespace FlexCMS.BLL.Core
         /// <param name="article"></param>
         /// <param name="errors"></param>
         public void Update(UpdateArticleBLM article,
-                            out UpdateArticleBLM.ValidationErrors errors)
+                            out ValidationErrors<UpdateArticleBLM.ValidatableFields, String> errors)
         {
             if (article == null)
             {
@@ -290,7 +291,7 @@ namespace FlexCMS.BLL.Core
         /// </summary>
         /// <param name="article"></param>
         /// <returns></returns>
-        private AddArticleBLM.ValidationErrors ValidateAddArticle(AddArticleBLM article)
+        private ValidationErrors<AddArticleBLM.ValidatableFields, String> ValidateAddArticle(AddArticleBLM article)
         {
             var errors = ValidateArticle(article);
 
@@ -309,8 +310,7 @@ namespace FlexCMS.BLL.Core
         /// </summary>
         /// <param name="article"></param>
         /// <returns></returns>
-        private AddArticleBLM.ValidationErrors 
-            ValidateArticle(AddArticleBLM article)
+        private ValidationErrors<AddArticleBLM.ValidatableFields, String> ValidateArticle(AddArticleBLM article)
         {
             var errors = article.CreateValidationErrorsCollection();
 
@@ -332,7 +332,7 @@ namespace FlexCMS.BLL.Core
         /// </summary>
         /// <param name="article"></param>
         /// <returns></returns>
-        private UpdateArticleBLM.ValidationErrors ValidateUpdateArticle(UpdateArticleBLM article)
+        private ValidationErrors<UpdateArticleBLM.ValidatableFields, String> ValidateUpdateArticle(UpdateArticleBLM article)
         {
             var errors = ValidateArticle((AddArticleBLM)article);
 
