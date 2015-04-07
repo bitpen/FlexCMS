@@ -153,14 +153,23 @@ WHERE Section.Id = @sectionId";
         
         }
 
-
-        public static List<ArticlesBO.ArticleSummaryBLM> GetSectionPageArticles(Guid id, int page)
+        /// <summary>
+        /// Retrieve a specific page of articles within a section
+        /// </summary>
+        /// <param name="id">Primary key of the section</param>
+        /// <param name="page">Page to retrieve</param>
+        /// <returns></returns>
+        public static List<ArticlesBO.ArticleSummaryBLM> GetPagedArticles(Guid id, int page)
         {
             var articles = new List<ArticlesBO.ArticleSummaryBLM>();
             
             using (var db = new CmsContext())
             {
-                var data = db.Articles.Where(i => i.SectionId == id).OrderBy(i => i.DateCreated_utc).Skip(5 * (page - 1)).Take(5);
+                var data = db.Articles
+                            .Where(i => i.SectionId == id)
+                            .OrderByDescending(i => i.DateCreated_utc)
+                            .Skip(5 * (page - 1))
+                            .Take(5);
 
                 articles = data.Select(i => new ArticlesBO.ArticleSummaryBLM()
                 {
@@ -216,11 +225,11 @@ WHERE Section.Id = @sectionId";
 
             if (string.IsNullOrEmpty(section.Name))
             {
-                errors.Add(AddSectionBLM.ValidatableFields.Name, "Page name is required.");
+                errors.Add(AddSectionBLM.ValidatableFields.Name, "Section name is required.");
             }
             else if (section.Name.Length > 50)
             {
-                errors.Add(AddSectionBLM.ValidatableFields.Name, "Maximum length of name is 50 characters.");
+                errors.Add(AddSectionBLM.ValidatableFields.Name, "Maximum length of Name is 50 characters.");
             }
 
             return errors;

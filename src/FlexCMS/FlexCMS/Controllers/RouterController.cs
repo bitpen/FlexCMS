@@ -11,16 +11,6 @@ namespace FlexCMS.Controllers
     public class RouterController : Controller
     {
         /// <summary>
-        /// Process a simple route (article)
-        /// </summary>
-        /// <param name="article"></param>
-        /// <returns></returns>
-        public ActionResult SimpleRoute(string article)
-        {
-            return View();
-        }
-
-        /// <summary>
         /// Process a custom route
         /// </summary>
         /// <returns></returns>
@@ -42,6 +32,11 @@ namespace FlexCMS.Controllers
 
         #region Private methods
         
+        /// <summary>
+        /// Determine and generate the proper view for the given route
+        /// </summary>
+        /// <param name="route"></param>
+        /// <returns></returns>
         private ActionResult GenerateRouteSpecificView(RoutesBO.RouteSummaryBLM route)
         {
             if (route.Type == RoutesBO.RouteType.Section)
@@ -52,9 +47,15 @@ namespace FlexCMS.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Generate the specific page requested for the site section requested 
+        /// in the route
+        /// </summary>
+        /// <param name="route"></param>
+        /// <returns></returns>
         private ActionResult GenerateSiteSectionView(RoutesBO.RouteSummaryBLM route)
         {
-            var data = SectionsBO.GetSectionPageArticles(route.Id, 1);
+            var data = SectionsBO.GetPagedArticles(route.Id, 1);
             var articles = data.Select(i => new ArticlesController.ArticleListing()
             {
                 ArticleId = i.Id,
@@ -127,9 +128,6 @@ namespace FlexCMS.Controllers
             Response.StatusDescription = "Unable to find route.";
             return Content("Unable to find route.");
         }
-
-
-        
 
         #endregion Private Methods
 

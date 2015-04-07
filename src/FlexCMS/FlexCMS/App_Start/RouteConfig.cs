@@ -23,7 +23,7 @@ namespace FlexCMS
             routes.MapRoute(
                 name: "ComplexRoute",
                 url : "{*.}",    
-                defaults: new { controller = "Router", action = "ComplexRoute" }
+                defaults: new { controller = "Router", action = "ComplexRoute", pageNumber = 1 }
                 );
 
             //routes.MapRoute(
