@@ -26,7 +26,8 @@ namespace FlexCMS.BLL.Core
             public String Title { get; set; }
             public String Alias { get; set; }
             public String Content { get; set; }
-            public Guid SectionId { get; set; }
+            public Guid? SectionId { get; set; }
+            public DateTime? PublishDate_utc { get; set; }
             public List<String> Tags { get; set; }
 
             /// <summary>
@@ -37,6 +38,7 @@ namespace FlexCMS.BLL.Core
                 General = 1,
                 Title = 2,
                 Alias = 3,
+                SectionId = 4
             }
         }
 

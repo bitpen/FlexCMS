@@ -9,8 +9,12 @@
     @Html.TextBoxFor(m => m.Permalink, new { size = 80 })
 </div>
 <div>
-    <label>Permalink</label>
+    <label>Section</label>
     @Html.DropDownList("SectionId", new SelectList(Model.AvailableSections, "SectionId", "Name"),"")
+</div>
+<div>
+    <label>Publish Date</label>
+    @Html.TextBoxFor(m => m.PublishDate, new { size = 40 })
 </div>
 <div>
     <label>Article Content</label>

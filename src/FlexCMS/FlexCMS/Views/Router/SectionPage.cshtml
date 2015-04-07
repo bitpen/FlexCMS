@@ -1,0 +1,17 @@
+﻿@model List<FlexCMS.Areas.Admin.Controllers.ArticlesController.ArticleListing>
+
+@{
+    ViewBag.Title = "Section Page";
+}
+
+<h2>Section Page</h2>
+
+@foreach (var article in Model)
+{
+    <div>
+        <article>
+            <h3>@article.Title</h3>
+            <i>@article.DatePublished_local_display</i>
+        </article>
+    </div>
+}

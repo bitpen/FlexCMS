@@ -31,7 +31,8 @@ namespace FlexCMS.Areas.Admin.Controllers
             view.AvailableSections = sections.Select(i => new SectionsController.SectionListing()
             {
                 SectionId = i.Id,
-                Name = i.Name
+                Name = i.Name,
+                FullRoute = i.Route
             }).ToList();
 
 
@@ -51,6 +52,12 @@ namespace FlexCMS.Areas.Admin.Controllers
             add.Alias = article.Permalink;
             add.Content = article.Content;
             add.SectionId = article.SectionId;
+            if (article.PublishDate.HasValue)
+            {
+                add.PublishDate_utc = article.PublishDate.Value.ToUniversalTime();
+            }
+            
+
             using (var uow = new UnitOfWork("jt"))
             {
                 var articleBO = new ArticlesBO(uow);
@@ -77,12 +84,17 @@ namespace FlexCMS.Areas.Admin.Controllers
             view.Permalink = article.Alias;
             view.Content = article.Content;
             view.SectionId = article.SectionId;
-
+            if (article.PublishDate_utc.HasValue)
+            {
+                view.PublishDate = article.PublishDate_utc.Value.ToLocalTime();
+            }
+            
             var sections = SectionsBO.Find();
             view.AvailableSections = sections.Select(i => new SectionsController.SectionListing()
             {
                 SectionId = i.Id,
-                Name = i.Name
+                Name = i.Name,
+                FullRoute = i.Route
             }).ToList();
 
             return View(view);
@@ -100,8 +112,11 @@ namespace FlexCMS.Areas.Admin.Controllers
             update.Alias = article.Permalink;
             update.Content = article.Content;
             update.SectionId = article.SectionId;
+            if (article.PublishDate.HasValue)
+            {
+                update.PublishDate_utc = article.PublishDate.Value.ToUniversalTime();
+            }
             
-
             ArticlesBO.UpdateArticleBLM.ValidationErrors errors;
             using (var uow = new UnitOfWork("jt"))
             {
@@ -176,7 +191,8 @@ namespace FlexCMS.Areas.Admin.Controllers
             public String Title { get; set; }
             public String Permalink { get; set; }
             public String Content { get; set; }
-            public Guid SectionId { get; set; }
+            public Guid? SectionId { get; set; }
+            public DateTime? PublishDate { get; set; }
 
             public List<SectionsController.SectionListing> AvailableSections;
         }

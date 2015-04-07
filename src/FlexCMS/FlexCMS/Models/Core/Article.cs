@@ -41,8 +41,8 @@ namespace FlexCMS.Models.Core
         public String Content { get; set; }
 
 
-        [Required(ErrorMessage = "Every article must belong to a site section")]
-        public Guid SectionId { get; set; }
+        
+        public Guid? SectionId { get; set; }
 
         /// <summary>
         /// Timestamp the article was first commited to storage

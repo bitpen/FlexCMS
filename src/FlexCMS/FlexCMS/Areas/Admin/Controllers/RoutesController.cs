@@ -24,7 +24,7 @@ namespace FlexCMS.Areas.Admin.Controllers
             using (var uow = new UnitOfWork(HttpContext.User.Identity.Name))
             {
                 var bo = new RoutesBO(uow);
-                var id = bo.Add(route.Path, route.Description);
+                 Guid? id = null;// bo.Add(route.Path, route.Description, RoutesBO.RouteType.Section);
                 if (id != null)
                 {
                     return RedirectToAction("Index");

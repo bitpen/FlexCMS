@@ -48,7 +48,7 @@ namespace FlexCMS.BLL.Core
         /// </summary>
         public class SectionBLM : UpdateSectionBLM
         {
-
+            public String Route { get; set; }
         }
 
         /// <summary>

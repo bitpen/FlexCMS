@@ -59,33 +59,33 @@ namespace FlexCMS.BLL.Core
             var model = new Section();
             model.Name = section.Name;
             model.Description = section.Description;
-
+            model.FullRoutePath = "/" + section.Name;
             using (var transaction = new TransactionScope())
             {
                 _cmsContext.Sections.Add(model);
                 _cmsContext.SaveChanges();
 
-                var routesBO = new RoutesBO(_uow);
-                var routeId = routesBO.Add(section.Route, null);
+                //var routesBO = new RoutesBO(_uow);
+                //var routeId = routesBO.Add(section.Route, null, RoutesBO.RouteType.Section);
 
-                if (routeId == null)
-                {
-                    errors.Add(AddSectionBLM.ValidatableFields.Route, "Unable to create new route.");
-                    return null;
-                }
+                //if (routeId == null)
+                //{
+                //    errors.Add(AddSectionBLM.ValidatableFields.Route, "Unable to create new route.");
+                //    return null;
+                //}
 
 
-                var sql = @"INSERT INTO RouteToSection(RouteId, SectionId) Values(@routeId, @sectionId)";
-                var parameters = new object[2];
-                parameters[0] = new SqlParameter("@routeId", routeId);
-                parameters[1] = new SqlParameter("@sectionId", model.Id);
-                var rows = _cmsContext.Database.ExecuteSqlCommand(sql, parameters);
+                //var sql = @"INSERT INTO RouteToSection(RouteId, SectionId) Values(@routeId, @sectionId)";
+                //var parameters = new object[2];
+                //parameters[0] = new SqlParameter("@routeId", routeId);
+                //parameters[1] = new SqlParameter("@sectionId", model.Id);
+                //var rows = _cmsContext.Database.ExecuteSqlCommand(sql, parameters);
 
-                if (rows != 1)
-                {
-                    errors.Add(AddSectionBLM.ValidatableFields.Route, "Unable to map new route.");
-                    return null;
-                }
+                //if (rows != 1)
+                //{
+                //    errors.Add(AddSectionBLM.ValidatableFields.Route, "Unable to map new route.");
+                //    return null;
+                //}
 
                 transaction.Complete();
 
@@ -116,6 +116,7 @@ namespace FlexCMS.BLL.Core
             {
                 Id = i.Id,
                 Name = i.Name,
+                Route = i.FullRoutePath
             }).ToList();
 
             return sections;
@@ -137,11 +138,9 @@ TOP 1
 Section.Id AS Id,
 Section.Name AS Name,
 Section.Description AS Description,
-Route.Path AS Route
+Section.FullRoutePath AS Route
 FROM
 Section
-JOIN RouteToSection map ON Section.Id = map.SectionId
-JOIN Route ON map.RouteId = Route.Id
 WHERE Section.Id = @sectionId";
             var parameters = new object[1];
             parameters[0] = new SqlParameter("@sectionId", id);
@@ -151,6 +150,27 @@ WHERE Section.Id = @sectionId";
             }
 
             return section;
+        
+        }
+
+
+        public static List<ArticlesBO.ArticleSummaryBLM> GetSectionPageArticles(Guid id, int page)
+        {
+            var articles = new List<ArticlesBO.ArticleSummaryBLM>();
+            
+            using (var db = new CmsContext())
+            {
+                var data = db.Articles.Where(i => i.SectionId == id).OrderBy(i => i.DateCreated_utc).Skip(5 * (page - 1)).Take(5);
+
+                articles = data.Select(i => new ArticlesBO.ArticleSummaryBLM()
+                {
+                    Id = i.Id,
+                    DatePublished_utc = i.DatePublished_utc,
+                    Title = i.Title
+                }).ToList();
+            }
+
+            return articles;
         }
 
         /// <summary>
@@ -171,6 +191,7 @@ WHERE Section.Id = @sectionId";
             var model = _cmsContext.Sections.Find(section.Id);
             model.Name = section.Name;
             model.Description = section.Description;
+            model.FullRoutePath = "/" + section.Name;
             using (var transaction = new TransactionScope())
             {
                 _cmsContext.Entry(model).State = System.Data.Entity.EntityState.Modified;

@@ -143,6 +143,10 @@ namespace FlexCMS.BLL.Core
                 article.Alias = model.Alias;
                 article.Content = model.Content;
                 article.SectionId = model.SectionId;
+                if (model.DatePublished_utc != null)
+                {
+                    article.PublishDate_utc = model.DatePublished_utc.Value;
+                }
             }
             catch (Exception ex)
             {
@@ -268,6 +272,17 @@ namespace FlexCMS.BLL.Core
             model.Alias = article.Alias;
             model.Content = article.Content;
             model.SectionId = article.SectionId;
+
+            if (article.PublishDate_utc.HasValue)
+            {
+                model.PublishedBy = _cmsContext.ContextUserName;
+                model.DatePublished_utc = article.PublishDate_utc.Value;
+            }
+            else
+            {
+                model.PublishedBy = null;
+                model.DatePublished_utc = null;
+            }
         }
 
         /// <summary>

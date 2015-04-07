@@ -32,5 +32,15 @@ namespace FlexCMS.Models.Core
         [MaxLength(500, ErrorMessage = "The paths for routes is currently restricted to 500 characters")]
         [Required(ErrorMessage = "Path is required for a route")]
         public String Path { get; set; }
+
+        /// <summary>
+        /// The type of route
+        /// 1 = Site section
+        /// 2 = short url for page
+        /// 3 = short url for article
+        /// </summary>
+        [Required(ErrorMessage = "Every route must have a type.")]
+        [RegularExpression("[1-3]{1}", ErrorMessage = "Invalid route type.")]
+        public int RouteTypeId { get; set; }
     }
 }

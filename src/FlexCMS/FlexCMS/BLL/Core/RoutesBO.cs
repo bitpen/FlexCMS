@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 using System.Web;
+using bCommon.Validation;
 
 namespace FlexCMS.BLL.Core
 {
@@ -41,20 +42,27 @@ namespace FlexCMS.BLL.Core
         /// <param name="description">[Optional] Description of the route</param>
         /// <exception cref="ArgumentNullException">When the route is null or empty</exception>
         /// <returns>Null if route is duplicate of existing route</returns>
-        public Guid? Add(String route, String description)
+        public Guid? Add(AddRouteBLM route, out AddRouteBLM.ValidationErrors errors)
         {
-            if (String.IsNullOrEmpty(route))
+            if (String.IsNullOrEmpty(route.Path))
             {
                 throw new ArgumentNullException("route", "Custom route cannot be empty.");
             }
 
-            var cleanedRoute = CleanRoutePath(route);
+            var cleanedRoute = CleanRoutePath(route.Path);
             Guid? id;
+
+            errors = ValidateRoute(route);
+
+            if (errors.Any())
+            {
+                return null;
+            }
 
             var model = new Route();
             model.Path = cleanedRoute;
-            model.Description = description;
-
+            model.Description = route.Description;
+            model.RouteTypeId = (int)route.Type;
             if (_cmsContext.Routes.Any(i => i.Path.Equals(cleanedRoute)))
             {
                 return null;
@@ -70,6 +78,34 @@ namespace FlexCMS.BLL.Core
             }
 
             return id;
+        }
+
+        /// <summary>
+        /// Check the validity and type of a route path
+        /// </summary>
+        /// <param name="path">Full path of the route</param>
+        /// <returns>Null if the route could not be found</returns>
+        public static RouteSummaryBLM Check(string path)
+        {
+            RouteSummaryBLM route = null;
+            using (var db = new CmsContext())
+            {
+                using (var transaction = new TransactionScope())
+                {
+                    var section = db.Sections.FirstOrDefault(i => i.FullRoutePath.Equals(path));
+                    if (section != null)
+                    {
+                        route = new RouteSummaryBLM();
+                        route.Id = section.Id;
+                        route.Path = section.FullRoutePath;
+                        route.Type = RouteType.Section;
+                    }
+                    transaction.Complete();
+                }
+            }
+
+
+            return route;
         }
 
         public static List<RouteBLM> Find()
@@ -118,6 +154,7 @@ namespace FlexCMS.BLL.Core
             route.Id = data.Id;
             route.Path = data.Path;
             route.Description = data.Description;
+            route.Type = (RouteType)data.RouteTypeId;
 
             return route;
         }
@@ -148,6 +185,7 @@ namespace FlexCMS.BLL.Core
             route.Id = data.Id;
             route.Path = data.Path;
             route.Description = data.Description;
+            route.Type = (RouteType)data.RouteTypeId;
 
             return route;
         }
@@ -214,6 +252,21 @@ namespace FlexCMS.BLL.Core
             }
 
             return cleanedRoute;
+        }
+
+        /// <summary>
+        /// Validae a route
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        private AddRouteBLM.ValidationErrors ValidateRoute(AddRouteBLM route)
+        {
+            var errors = route.CreateValidationErrorsCollection();
+
+
+
+            return errors;
         }
 
         #endregion Private Methods
