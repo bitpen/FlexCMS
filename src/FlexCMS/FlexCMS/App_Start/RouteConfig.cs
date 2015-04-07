@@ -16,7 +16,8 @@ namespace FlexCMS
             routes.MapRoute(
                 name: "Home",
                 url: "",
-                defaults: new { controller = "Home", action = "Index" }
+                defaults: new { controller = "Home", action = "Index" },
+                namespaces: new []{"FlexCMS.Controllers"}
                 );
 
             

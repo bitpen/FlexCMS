@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace FlexCMS.Areas.Admin.Controllers
 {
+    [Authorize]
     public class RoutesController : Controller
     {
         //Get: View for adding a new route

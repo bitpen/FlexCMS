@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace FlexCMS.Areas.Admin.Controllers
 {
+    [Authorize]
     public class SectionsController : Controller
     {
         public ActionResult Add()

@@ -8,6 +8,7 @@ using FlexCMS.BLL;
 
 namespace FlexCMS.Areas.Admin.Controllers
 {
+    [Authorize]
     public class PagesController : Controller
     {
         public ActionResult Add()
