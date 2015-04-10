@@ -14,9 +14,11 @@ namespace FlexCMS.Controllers
         /// Process a custom route
         /// </summary>
         /// <returns></returns>
-        public ActionResult ComplexRoute(int pageNumber)
+        public ActionResult ComplexRoute(string path)
         {
-            var url = Request.Path;
+            
+            //var url = Request.Path;
+            var url = path;
             int page;
             url = ParseRoute(url, out page);
             var route = RoutesBO.Check(url);
@@ -74,7 +76,12 @@ namespace FlexCMS.Controllers
         private String ParseRoute(string path, out int page)
         {
             page = 1;
-            var cleanedRoute = path.Substring(1); //strip off leading '/'
+            var cleanedRoute = path;
+            
+            if(cleanedRoute.StartsWith("/")){
+                cleanedRoute = cleanedRoute.Substring(1); //strip off leading '/'
+            }
+            
             if (cleanedRoute.EndsWith("/"))
             {
                 cleanedRoute = cleanedRoute.Substring(0, cleanedRoute.Length - 1);
