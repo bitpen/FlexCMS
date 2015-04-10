@@ -49,8 +49,27 @@ namespace FlexCMS.Controllers
             {
                 return GeneratePageView(route);
             }
+            else if (route.Type == RoutesBO.RouteType.Article)
+            {
+                return GenerateArticleView(route);
+            }
 
             return View();
+        }
+
+        /// <summary>
+        /// Generate the view that coorsponds to a specific article.
+        /// </summary>
+        /// <param name="route"></param>
+        /// <returns></returns>
+        private ActionResult GenerateArticleView(RoutesBO.RouteSummaryBLM route)
+        {
+            var data = ArticlesBO.Get(route.Id);
+            var article = new ArticlesController.EditArticle();
+            article.ArticleId = data.Id;
+            article.Content = data.Content;
+
+            return View("Article", article);
         }
 
         /// <summary>
