@@ -92,42 +92,16 @@ namespace FlexCMS.BLL.Core
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var section = db.Sections.FirstOrDefault(i => i.FullRoutePath.Equals(path));
-                    if (section != null)
+                    var data = db.Routeses.FirstOrDefault(i => i.Route.Equals(path));
+                    if (data != null)
                     {
-                        //check for a section
                         route = new RouteSummaryBLM();
-                        route.Id = section.Id;
-                        route.Path = section.FullRoutePath;
-                        route.Type = RouteType.Section;
+                        route.Id = data.Id;
+                        route.Path = data.Route;
+                        route.Type = (RouteType) data.Type;
                     }
-                    else
-                    {
-                        //check for a page
-                        var page = db.Pages.FirstOrDefault(i => i.Route.Equals(path));
-                        if (page != null)
-                        {
-                            route = new RouteSummaryBLM();
-                            route.Id = page.Id;
-                            route.Path = page.Route;
-                            route.Type = RouteType.Page;
-                        }
-                        else
-                        {
-                            //check for an actual article by alias
-                            var routeSplit = path.Split('/');
-                            var articleAlias = routeSplit[routeSplit.Length - 1];  //end of route is article
-                            var article = db.Articles.FirstOrDefault(i => i.Alias.Equals(articleAlias));
-                            if (article != null)
-                            {
-                                route = new RouteSummaryBLM();
-                                route.Id = article.Id;
-                                route.Path = article.Alias;
-                                route.Type = RouteType.Article;
-                            }
-                        }
-                        
-                    }
+                       
+
                     transaction.Complete();
                 }
             }

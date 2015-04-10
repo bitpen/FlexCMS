@@ -50,6 +50,9 @@ namespace FlexCMS.BLL
         /// </summary>
         public DbSet<Route> Routes { get; set; }
 
+
+        public DbSet<Routes> Routeses { get; set; }
+
         /// <summary>
         /// Site Section storage repository
         /// </summary>

@@ -141,6 +141,7 @@
     <Compile Include="Models\Core\Article.cs" />
     <Compile Include="Models\Core\Page.cs" />
     <Compile Include="Models\Core\Route.cs" />
+    <Compile Include="Models\Core\Routes.cs" />
     <Compile Include="Models\Core\Section.cs" />
     <Compile Include="Models\Core\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
