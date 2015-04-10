@@ -20,30 +20,7 @@ namespace FlexCMS.BLL.Core
             Article = 3
         }
 
-        public class AddRouteBLM : AbstractValidatableBLM<AddRouteBLM.ValidatableFields, String>
-        {
-            public string Path { get; set; }
-            public string Description { get; set; }
-            public RouteType Type { get; set; }
-
-            public new enum ValidatableFields
-            {
-                General = 1,
-                Path = 2,
-                Description = 3,
-                Type = 4
-            }
-        }
-
-        public class UpdateRouteBLM : AddRouteBLM
-        {
-            public Guid Id { get; set; }
-        }
-
-        public class RouteBLM  : UpdateRouteBLM
-        {
-            public String FullPath { get; set; }
-        }
+       
 
         public class RouteSummaryBLM
         {

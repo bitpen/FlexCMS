@@ -120,7 +120,6 @@
     <Compile Include="Areas\Admin\Controllers\ArticlesController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\PagesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\RoutesController.cs" />
     <Compile Include="Areas\Admin\Controllers\SectionsController.cs" />
     <Compile Include="BLL\Core\ArticlesBO.cs" />
     <Compile Include="BLL\Core\ArticlesBOModels.cs" />
@@ -194,22 +193,10 @@
     <Content Include="Areas\Admin\Views\Articles\_NewOrEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Routes\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\bCommon\bCommon.csproj">
       <Project>{badc1a8e-9f91-46dc-9626-71a604f914e8}</Project>
       <Name>bCommon</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Routes\Add.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Routes\_NewOrEdit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Routes\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Pages\Index.cshtml" />
