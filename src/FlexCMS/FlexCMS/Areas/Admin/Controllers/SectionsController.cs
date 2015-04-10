@@ -75,6 +75,7 @@ namespace FlexCMS.Areas.Admin.Controllers
         public ActionResult Edit(Guid id)
         {
             var section = SectionsBO.Get(id);
+
             var view = new EditSection();
 
             var data = SectionsBO.Find();

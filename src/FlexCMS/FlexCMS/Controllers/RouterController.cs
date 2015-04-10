@@ -18,7 +18,7 @@ namespace FlexCMS.Controllers
         {
             
             //var url = Request.Path;
-            var url = path;
+            var url = path ?? "/";
             int page;
             url = ParseRoute(url, out page);
             var route = RoutesBO.Check(url);

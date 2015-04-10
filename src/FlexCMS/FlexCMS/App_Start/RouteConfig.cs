@@ -12,14 +12,6 @@ namespace FlexCMS
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            routes.MapRoute(
-                name: "Home",
-                url: "",
-                defaults: new { controller = "Home", action = "Index" },
-                namespaces: new []{"FlexCMS.Controllers"}
-                );
-
             
             routes.MapRoute(
                 name: "ComplexRoute",
