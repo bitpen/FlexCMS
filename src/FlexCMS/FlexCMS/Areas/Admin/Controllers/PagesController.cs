@@ -24,6 +24,7 @@ namespace FlexCMS.Areas.Admin.Controllers
             var blm = new PagesBO.AddPageBLM();
             blm.Name = page.Name;
             blm.Content = page.Content;
+            blm.Route = page.Route;
             ValidationErrors<PagesBO.AddPageBLM.ValidatableFields, String> errors;
             Guid? id;
             using (var uow = new UnitOfWork("jt"))
@@ -37,7 +38,7 @@ namespace FlexCMS.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View();
+            return View(page);
         }
 
         //
@@ -48,7 +49,8 @@ namespace FlexCMS.Areas.Admin.Controllers
             var pages = data.Select(i => new PageListing()
             {
                 PageId = i.Id,
-                Name = i.Name
+                Name = i.Name,
+                Route = i.Route
             }).ToList();
 
             return View(pages);
@@ -62,6 +64,7 @@ namespace FlexCMS.Areas.Admin.Controllers
             view.PageId = page.Id;
             view.Name = page.Name;
             view.Content = page.Content;
+            view.Route = page.Route;
             return View(view);
         }
 
@@ -72,6 +75,7 @@ namespace FlexCMS.Areas.Admin.Controllers
             blm.Id = page.PageId;
             blm.Name = page.Name;
             blm.Content = page.Content;
+            blm.Route = page.Route;
             ValidationErrors<PagesBO.UpdatePageBLM.ValidatableFields, String> errors;
             Boolean success;
             using (var uow = new UnitOfWork("jt"))
@@ -85,7 +89,7 @@ namespace FlexCMS.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View();
+            return View(page);
         }
 
 
@@ -95,6 +99,7 @@ namespace FlexCMS.Areas.Admin.Controllers
         {
             public string Name { get; set; }
             public String Content { get; set; }
+            public String Route { get; set; }
         }
 
         public class EditPage : AddPage
@@ -106,6 +111,7 @@ namespace FlexCMS.Areas.Admin.Controllers
         {
             public Guid PageId { get; set; }
             public String Name { get; set; }
+            public String Route { get; set; }
         }
 
         #endregion View Models

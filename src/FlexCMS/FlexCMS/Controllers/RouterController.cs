@@ -45,8 +45,27 @@ namespace FlexCMS.Controllers
             {
                 return GenerateSiteSectionView(route);
             }
+            else if (route.Type == RoutesBO.RouteType.Page)
+            {
+                return GeneratePageView(route);
+            }
 
             return View();
+        }
+
+        /// <summary>
+        /// Generate the view that coorsponds to a specific static page.
+        /// </summary>
+        /// <param name="route"></param>
+        /// <returns></returns>
+        private ActionResult GeneratePageView(RoutesBO.RouteSummaryBLM route)
+        {
+            var data = PagesBO.Get(route.Id);
+            var page = new PagesController.EditPage();
+            page.PageId = data.Id;
+            page.Content = data.Content;
+
+            return View("Page", page);
         }
 
         /// <summary>

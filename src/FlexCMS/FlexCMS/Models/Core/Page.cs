@@ -33,6 +33,10 @@ namespace FlexCMS.Models.Core
         [MaxLength]
         public String Content { get; set;}
 
+
+        [MaxLength(500, ErrorMessage = "The maximum length of Route is 500 characters")]
+        public String Route { get; set; }
+
         /// <summary>
         /// Timestamp the page was originally created
         /// </summary>

@@ -16,13 +16,13 @@ namespace FlexCMS.BLL.Core
         {
             public String Name { get; set; }
             public String Content { get; set; }
-            public Guid RouteId { get; set; }
+            public String Route { get; set; }
 
             public new enum ValidatableFields
             {
                 General = 1,
                 Name = 2,
-                RouteId = 3
+                Route = 3
             }
         }
 
@@ -46,6 +46,7 @@ namespace FlexCMS.BLL.Core
         {
             public Guid Id { get; set; }
             public String Name { get; set; }
+            public String Route { get; set; }
         }
     }
 }

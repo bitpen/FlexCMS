@@ -100,6 +100,18 @@ namespace FlexCMS.BLL.Core
                         route.Path = section.FullRoutePath;
                         route.Type = RouteType.Section;
                     }
+                    else
+                    {
+                        var page = db.Pages.FirstOrDefault(i => i.Route.Equals(path));
+                        if (page != null)
+                        {
+                            route = new RouteSummaryBLM();
+                            route.Id = page.Id;
+                            route.Path = page.Route;
+                            route.Type = RouteType.Page;
+                        }
+                        
+                    }
                     transaction.Complete();
                 }
             }

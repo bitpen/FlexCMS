@@ -3,6 +3,7 @@ using FlexCMS.Models.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Transactions;
 using System.Web;
 
@@ -60,6 +61,7 @@ namespace FlexCMS.BLL.Core
             var model = new Page();
             model.Name = page.Name;
             model.Content = page.Content;
+            model.Route = "/" + page.Route;
             model.DateCreated_utc = DateTime.UtcNow;
             model.CreatedBy = _cmsContext.ContextUserName;
             try
@@ -127,6 +129,7 @@ namespace FlexCMS.BLL.Core
             page.Id = model.Id;
             page.Name = model.Name;
             page.Content = model.Content;
+            page.Route = model.Route;
             page.DateCreated_utc = model.DateCreated_utc;
             page.DateModified_utc = model.DateModified_utc;
             page.DatePublished_utc = model.DatePublished_utc;
@@ -155,6 +158,7 @@ namespace FlexCMS.BLL.Core
             var model = _cmsContext.Pages.Find(page.Id);
             model.Name = page.Name;
             model.Content = page.Content;
+            model.Route = "/" + page.Route;
             model.DateModified_utc = DateTime.UtcNow;
             model.ModifiedBy = _cmsContext.ContextUserName;
             using (var transaction = new TransactionScope())
@@ -186,6 +190,56 @@ namespace FlexCMS.BLL.Core
             else if(page.Name.Length > 50)
             {
                 errors.Add(AddPageBLM.ValidatableFields.Name, "Maximum length of name is 50 characters.");
+            }
+
+            if (!string.IsNullOrEmpty(page.Route))
+            {
+                if (Regex.IsMatch(page.Route, @"[^0-9A-Za-z\-\/]+"))
+                {
+                    errors.Add(AddPageBLM.ValidatableFields.Route, "Invalid characters in Route.");
+                }
+            }
+
+            return errors;
+        }
+
+        /// <summary>
+        /// Validate business and storage rules for a new page
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        private ValidationErrors<PagesBO.AddPageBLM.ValidatableFields, String> ValidateAddPage(AddPageBLM page)
+        {
+            var errors = ValidatePage(page);
+
+            if (!string.IsNullOrEmpty(page.Route))
+            {
+                if (_cmsContext.Pages.Any(i => i.Route.Equals(page.Route))
+                    || _cmsContext.Sections.Any(i => i.FullRoutePath.Equals(page.Route)))
+                {
+                    errors.Add(AddPageBLM.ValidatableFields.Route, "Route must be unique.");
+                }
+            }
+
+            return errors;
+        }
+
+        /// <summary>
+        /// Validate business and storage rules for an updated page
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        private ValidationErrors<PagesBO.UpdatePageBLM.ValidatableFields, String> ValidateAddPage(UpdatePageBLM page)
+        {
+            var errors = ValidatePage(page);
+
+            if (!string.IsNullOrEmpty(page.Route))
+            {
+                if (_cmsContext.Pages.Any(i => i.Id != page.Id && i.Route.Equals(page.Route))
+                    || _cmsContext.Sections.Any(i => i.FullRoutePath.Equals(page.Route)))
+                {
+                    errors.Add(UpdatePageBLM.ValidatableFields.Route, "Route must be unique.");
+                }
             }
 
             return errors;
