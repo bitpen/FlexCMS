@@ -41,5 +41,11 @@ namespace FlexCMS.Models.Core
         [MaxLength(500, ErrorMessage = "The maximum length of the description is 500 characters")]
         public String FullRoutePath { get; set; }
 
+
+        /// <summary>
+        /// Foriegn key of the parent section
+        /// </summary>
+        public Guid? ParentSectionId { get; set; }
+
     }
 }

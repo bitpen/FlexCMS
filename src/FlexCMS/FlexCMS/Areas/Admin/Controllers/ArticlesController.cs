@@ -73,6 +73,14 @@ namespace FlexCMS.Areas.Admin.Controllers
                 
             }
 
+            var sections = SectionsBO.Find();
+            article.AvailableSections = sections.Select(i => new SectionsController.SectionListing()
+            {
+                SectionId = i.Id,
+                Name = i.Name,
+                FullRoute = i.Route
+            }).ToList();
+
             return View(article);
         }
 
@@ -130,7 +138,17 @@ namespace FlexCMS.Areas.Admin.Controllers
                 {
                     return RedirectToAction("Index");
                 }
+            
+            
             }
+
+            var sections = SectionsBO.Find();
+            article.AvailableSections = sections.Select(i => new SectionsController.SectionListing()
+            {
+                SectionId = i.Id,
+                Name = i.Name,
+                FullRoute = i.Route
+            }).ToList();
 
             return View(article);
         }

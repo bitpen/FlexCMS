@@ -15,6 +15,14 @@ namespace FlexCMS.Areas.Admin.Controllers
         public ActionResult Add()
         {
             var view = new AddSection();
+
+            var data = SectionsBO.Find();
+            view.AvailableParentSections = data.Select(i => new SectionListing(){
+                SectionId = i.Id,
+                Name = i.Name,
+                FullRoute = i.Route
+            }).ToList();
+
             return View(view);
         }
 
@@ -24,6 +32,7 @@ namespace FlexCMS.Areas.Admin.Controllers
             var blm = new SectionsBO.AddSectionBLM();
             blm.Name = section.Name;
             blm.Description = section.Description;
+            blm.ParentSectionId = section.ParentSectionId;
             ValidationErrors<SectionsBO.AddSectionBLM.ValidatableFields, String> errors;
             Guid? id;
             using (var uow = new UnitOfWork("jt"))
@@ -37,9 +46,15 @@ namespace FlexCMS.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-     
+            var data = SectionsBO.Find();
+            section.AvailableParentSections = data.Select(i => new SectionListing()
+            {
+                SectionId = i.Id,
+                Name = i.Name,
+                FullRoute = i.Route
+            }).ToList();
 
-            return View();
+            return View(section);
         }
 
         //
@@ -50,7 +65,8 @@ namespace FlexCMS.Areas.Admin.Controllers
             var sections = data.Select(i => new SectionListing()
             {
                 SectionId = i.Id,
-                Name = i.Name
+                Name = i.Name,
+                FullRoute = i.Route
             }).ToList();
 
             return View(sections);
@@ -59,8 +75,17 @@ namespace FlexCMS.Areas.Admin.Controllers
         public ActionResult Edit(Guid id)
         {
             var section = SectionsBO.Get(id);
-
             var view = new EditSection();
+
+            var data = SectionsBO.Find();
+            view.AvailableParentSections = data.Where(i => i.Id != section.Id).Select(i => new SectionListing()
+            {
+                SectionId = i.Id,
+                Name = i.Name,
+                FullRoute = i.Route
+            }).ToList();
+
+            
             view.SectionId = section.Id;
             view.Name = section.Name;
             view.Description = section.Description;
@@ -75,6 +100,7 @@ namespace FlexCMS.Areas.Admin.Controllers
             blm.Id = section.SectionId;
             blm.Name = section.Name;
             blm.Description = section.Description;
+            blm.ParentSectionId = section.ParentSectionId;
             ValidationErrors<SectionsBO.UpdateSectionBLM.ValidatableFields, String> errors;
             Boolean success;
             using (var uow = new UnitOfWork("jt"))
@@ -88,7 +114,15 @@ namespace FlexCMS.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View();
+            var data = SectionsBO.Find();
+            section.AvailableParentSections = data.Where(i => i.Id != section.SectionId).Select(i => new SectionListing()
+            {
+                SectionId = i.Id,
+                Name = i.Name,
+                FullRoute = i.Route
+            }).ToList();
+
+            return View(section);
         }
 
 
@@ -96,8 +130,16 @@ namespace FlexCMS.Areas.Admin.Controllers
 
         public class AddSection
         {
+            public AddSection()
+            {
+                AvailableParentSections = new List<SectionListing>();
+            }
+
             public string Name { get; set; }
             public String Description { get; set; }
+            public Guid? ParentSectionId { get; set; }
+
+            public List<SectionListing> AvailableParentSections { get; set; }
         }
 
         public class EditSection : AddSection

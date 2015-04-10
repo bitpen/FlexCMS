@@ -10,7 +10,7 @@
 </div>
 <div>
     <label>Section</label>
-    @Html.DropDownList("SectionId", new SelectList(Model.AvailableSections, "SectionId", "Name"),"")
+    @Html.DropDownList("SectionId", new SelectList(Model.AvailableSections.OrderBy(i => i.FullRoute), "SectionId", "FullRoute"), "")
 </div>
 <div>
     <label>Publish Date</label>

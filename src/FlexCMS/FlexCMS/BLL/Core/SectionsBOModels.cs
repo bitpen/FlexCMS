@@ -21,6 +21,7 @@ namespace FlexCMS.BLL.Core
 
             public String Name { get; set; }
             public String Description { get; set; }
+            public Guid? ParentSectionId { get; set; }
 
             /// <summary>
             /// Fields that the business layer will validate against

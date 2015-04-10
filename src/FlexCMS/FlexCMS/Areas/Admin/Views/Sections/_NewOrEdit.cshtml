@@ -1,11 +1,15 @@
 ﻿@model FlexCMS.Areas.Admin.Controllers.SectionsController.AddSection
 
 <div>
+    <label>Parent Section</label>
+w    @Html.DropDownList("ParentSectionId", new SelectList(Model.AvailableParentSections.OrderBy(i => i.FullRoute), "SectionId", "FullRoute"),"")
+</div>
+<div>
     <label>Name</label>
     @Html.TextBoxFor(m => m.Name)
 </div>
 <div>
-    <label>Route Path</label>
+    <label>Description</label>
     @Html.TextAreaFor(m => m.Description, new { size = 40 })
 </div>
 

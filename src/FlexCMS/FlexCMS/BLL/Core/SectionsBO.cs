@@ -52,43 +52,31 @@ namespace FlexCMS.BLL.Core
         {
             Guid? id = null;
 
-            errors = ValidateSection(section);
+            errors = ValidateAddSection(section);
 
             if (errors.Any())
             {
                 return null;
             }
 
+            var parentPath = "";
+            if (section.ParentSectionId != null)
+            {
+                var parent = _cmsContext.Sections.Find(section.ParentSectionId);
+                if (parent != null)
+                {
+                    parentPath = parent.FullRoutePath;
+                }
+            }
+
             var model = new Section();
             model.Name = section.Name;
             model.Description = section.Description;
-            model.FullRoutePath = "/" + section.Name;
+            model.FullRoutePath = parentPath + "/" + section.Name;
             using (var transaction = new TransactionScope())
             {
                 _cmsContext.Sections.Add(model);
                 _cmsContext.SaveChanges();
-
-                //var routesBO = new RoutesBO(_uow);
-                //var routeId = routesBO.Add(section.Route, null, RoutesBO.RouteType.Section);
-
-                //if (routeId == null)
-                //{
-                //    errors.Add(AddSectionBLM.ValidatableFields.Route, "Unable to create new route.");
-                //    return null;
-                //}
-
-
-                //var sql = @"INSERT INTO RouteToSection(RouteId, SectionId) Values(@routeId, @sectionId)";
-                //var parameters = new object[2];
-                //parameters[0] = new SqlParameter("@routeId", routeId);
-                //parameters[1] = new SqlParameter("@sectionId", model.Id);
-                //var rows = _cmsContext.Database.ExecuteSqlCommand(sql, parameters);
-
-                //if (rows != 1)
-                //{
-                //    errors.Add(AddSectionBLM.ValidatableFields.Route, "Unable to map new route.");
-                //    return null;
-                //}
 
                 transaction.Complete();
 
@@ -194,17 +182,27 @@ WHERE Section.Id = @sectionId";
         public Boolean Update(UpdateSectionBLM section, 
                             out ValidationErrors<SectionsBO.UpdateSectionBLM.ValidatableFields, String> errors)
         {
-            errors = ValidateSection(section);
+            errors = ValidateUpdateSection(section);
 
             if (errors.Any())
             {
                 return false;
             }
 
+            var parentPath = "";
+            if (section.ParentSectionId != null)
+            {
+                var parent = _cmsContext.Sections.Find(section.ParentSectionId);
+                if (parent != null)
+                {
+                    parentPath = parent.FullRoutePath;
+                }
+            }
+
             var model = _cmsContext.Sections.Find(section.Id);
             model.Name = section.Name;
             model.Description = section.Description;
-            model.FullRoutePath = "/" + section.Name;
+            model.FullRoutePath = parentPath + "/" + section.Name;
             using (var transaction = new TransactionScope())
             {
                 _cmsContext.Entry(model).State = System.Data.Entity.EntityState.Modified;
@@ -247,6 +245,51 @@ WHERE Section.Id = @sectionId";
             if (!String.IsNullOrEmpty(section.Description) && section.Description.Length > 500)
             {
                 errors.Add(AddSectionBLM.ValidatableFields.Description, "Maximum length of Description is 500 characters.");
+            }
+
+            return errors;
+        }
+
+        /// <summary>
+        /// Validate business and storage rules when creating a section
+        /// </summary>
+        /// <param name="section"></param>
+        /// <returns></returns>
+        public ValidationErrors<AddSectionBLM.ValidatableFields, String>
+            ValidateAddSection(AddSectionBLM section)
+        {
+            var errors = ValidateSection(section);
+
+            if (!String.IsNullOrEmpty(section.Name))
+            {
+                if (_cmsContext.Sections.Any(i => i.ParentSectionId == section.ParentSectionId
+                            && i.Name.Equals(section.Name)))
+                {
+                    errors.Add(UpdateSectionBLM.ValidatableFields.Name, "Section names must be unique");
+                }
+            }
+
+            return errors;
+        }
+
+        /// <summary>
+        /// Validate business and storage rules when updating a section
+        /// </summary>
+        /// <param name="section"></param>
+        /// <returns></returns>
+        public ValidationErrors<UpdateSectionBLM.ValidatableFields, String>
+            ValidateUpdateSection(UpdateSectionBLM section)
+        {
+            var errors = ValidateSection(section);
+
+            if (!String.IsNullOrEmpty(section.Name))
+            {
+                if (_cmsContext.Sections.Any(i => i.Id != section.Id
+                            && i.ParentSectionId == section.ParentSectionId
+                            && i.Name.Equals(section.Name)))
+                {
+                    errors.Add(UpdateSectionBLM.ValidatableFields.Name, "Section names must be unique");
+                }
             }
 
             return errors;

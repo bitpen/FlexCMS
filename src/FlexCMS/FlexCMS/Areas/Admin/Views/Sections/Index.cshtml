@@ -22,11 +22,11 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.OrderBy(i => i.FullRoute))
             {
                 <tr>
                     <td>
-                        @item.Name
+                        @Html.Raw(item.FullRoute) [@item.Name]
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.SectionId })
