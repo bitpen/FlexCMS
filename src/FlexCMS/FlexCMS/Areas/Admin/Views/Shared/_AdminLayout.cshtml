@@ -1,7 +1,22 @@
-﻿<nav>
-    @Html.ActionLink("Articles", "Index", "Articles", new { area = "Admin" }, null) <br />
-    @Html.ActionLink("Pages", "Index", "Pages", new { area = "Admin" }, null) <br />
-    @Html.ActionLink("Sections", "Index", "Sections", new { area = "Admin" }, null) <br />
-</nav>
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin</title>
+    </head>
+    <body>
+        <header>
+            <nav>
+                @Html.ActionLink("Settings", "Settings", "Account", new { area = "Admin" }, null) <br /> 
+                [@Html.ActionLink("Log Out", "LogOff", "Account", new { area = "Admin" }, null)] <br /> 
+            </nav>
+        </header>
+        <nav>
+            @Html.ActionLink("Articles", "Index", "Articles", new { area = "Admin" }, null) <br />
+            @Html.ActionLink("Pages", "Index", "Pages", new { area = "Admin" }, null) <br />
+            @Html.ActionLink("Sections", "Index", "Sections", new { area = "Admin" }, null) <br />
+        </nav>
+        @RenderBody()
+    </body>
+        
 
-@RenderBody()
+</html>
