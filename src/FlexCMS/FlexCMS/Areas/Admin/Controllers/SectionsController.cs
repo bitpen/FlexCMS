@@ -54,6 +54,14 @@ namespace FlexCMS.Areas.Admin.Controllers
                 FullRoute = i.Route
             }).ToList();
 
+            //map validation errors
+            var mappedErrors = errors.Map(_addSectionValidationMapper);
+
+            foreach (var error in mappedErrors.ToList())
+            {
+                ModelState.AddModelError(error.Key, error.Value);
+            }
+
             return View(section);
         }
 
@@ -122,6 +130,14 @@ namespace FlexCMS.Areas.Admin.Controllers
                 Name = i.Name,
                 FullRoute = i.Route
             }).ToList();
+
+            //map validation errors
+            var mappedErrors = errors.Map(_addSectionValidationMapper);
+
+            foreach (var error in mappedErrors.ToList())
+            {
+                ModelState.AddModelError(error.Key, error.Value);
+            }
 
             return View(section);
         }

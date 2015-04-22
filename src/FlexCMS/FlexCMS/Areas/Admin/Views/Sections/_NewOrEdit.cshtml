@@ -1,8 +1,10 @@
 ﻿@model FlexCMS.Areas.Admin.Controllers.SectionsController.AddSection
 
+@Html.ValidationSummary()
+
 <div>
     <label>Parent Section</label>
-w    @Html.DropDownList("ParentSectionId", new SelectList(Model.AvailableParentSections.OrderBy(i => i.FullRoute), "SectionId", "FullRoute"),"")
+    @Html.DropDownList("ParentSectionId", new SelectList(Model.AvailableParentSections.OrderBy(i => i.FullRoute), "SectionId", "FullRoute"),"")
 </div>
 <div>
     <label>Name</label>

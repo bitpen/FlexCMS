@@ -226,9 +226,13 @@ WHERE Section.Id = @sectionId";
         {
             var errors = section.CreateValidationErrorsCollection();
 
-            if (string.IsNullOrEmpty(section.Name))
+            if (section.Name == null)
             {
-                errors.Add(AddSectionBLM.ValidatableFields.Name, "Section name is required.");
+                section.Name = "";
+            }
+            if (string.IsNullOrEmpty(section.Name) && section.ParentSectionId != null)
+            {
+                errors.Add(AddSectionBLM.ValidatableFields.Name, "Only the default root section can have no name.");
             }
             else
             {
@@ -260,14 +264,13 @@ WHERE Section.Id = @sectionId";
         {
             var errors = ValidateSection(section);
 
-            if (!String.IsNullOrEmpty(section.Name))
-            {
+
                 if (_cmsContext.Sections.Any(i => i.ParentSectionId == section.ParentSectionId
                             && i.Name.Equals(section.Name)))
                 {
                     errors.Add(UpdateSectionBLM.ValidatableFields.Name, "Section names must be unique");
                 }
-            }
+            
 
             return errors;
         }

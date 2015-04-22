@@ -25,7 +25,6 @@ namespace FlexCMS.Models.Core
         /// Common name of the page. Also the sub route
         /// </summary>
         [MaxLength(50, ErrorMessage = "The maximum length of Name is 50 characters")]
-        [Required(ErrorMessage = "Name is required for all sections")]
         public String Name { get; set; }
         
 
