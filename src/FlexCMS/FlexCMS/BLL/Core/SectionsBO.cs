@@ -69,6 +69,12 @@ namespace FlexCMS.BLL.Core
                 }
             }
 
+            if (parentPath.Equals("/"))
+            {
+                //default root path
+                parentPath = "";
+            }
+
             var model = new Section();
             model.Name = section.Name;
             model.Description = section.Description;
@@ -197,6 +203,12 @@ WHERE Section.Id = @sectionId";
                 {
                     parentPath = parent.FullRoutePath;
                 }
+            }
+
+            if (parentPath.Equals("/"))
+            {
+                //default root path
+                parentPath = "";
             }
 
             var model = _cmsContext.Sections.Find(section.Id);
