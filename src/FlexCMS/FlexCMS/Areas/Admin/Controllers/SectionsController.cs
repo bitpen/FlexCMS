@@ -91,13 +91,14 @@ namespace FlexCMS.Areas.Admin.Controllers
             {
                 SectionId = i.Id,
                 Name = i.Name,
-                FullRoute = i.Route
+                FullRoute = i.Route,
             }).ToList();
 
             
             view.SectionId = section.Id;
             view.Name = section.Name;
             view.Description = section.Description;
+            view.ParentSectionId = section.ParentSectionId;
 
             return View(view);
         }

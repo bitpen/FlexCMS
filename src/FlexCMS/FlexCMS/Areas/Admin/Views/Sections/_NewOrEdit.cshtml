@@ -4,7 +4,7 @@
 
 <div>
     <label>Parent Section</label>
-    @Html.DropDownList("ParentSectionId", new SelectList(Model.AvailableParentSections.OrderBy(i => i.FullRoute), "SectionId", "FullRoute"),"")
+    @Html.DropDownList("ParentSectionId", new SelectList(Model.AvailableParentSections.OrderBy(i => i.FullRoute), "SectionId", "FullRoute"), "")
 </div>
 <div>
     <label>Name</label>

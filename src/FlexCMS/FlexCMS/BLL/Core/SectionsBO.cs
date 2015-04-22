@@ -79,6 +79,7 @@ namespace FlexCMS.BLL.Core
             model.Name = section.Name;
             model.Description = section.Description;
             model.FullRoutePath = parentPath + "/" + section.Name;
+            model.ParentSectionId = section.ParentSectionId;
             using (var transaction = new TransactionScope())
             {
                 _cmsContext.Sections.Add(model);
@@ -135,7 +136,8 @@ TOP 1
 Section.Id AS Id,
 Section.Name AS Name,
 Section.Description AS Description,
-Section.FullRoutePath AS Route
+Section.FullRoutePath AS Route,
+Section.ParentSectionId AS ParentSectionId
 FROM
 Section
 WHERE Section.Id = @sectionId";
@@ -215,6 +217,7 @@ WHERE Section.Id = @sectionId";
             model.Name = section.Name;
             model.Description = section.Description;
             model.FullRoutePath = parentPath + "/" + section.Name;
+            model.ParentSectionId = section.ParentSectionId;
             using (var transaction = new TransactionScope())
             {
                 _cmsContext.Entry(model).State = System.Data.Entity.EntityState.Modified;
