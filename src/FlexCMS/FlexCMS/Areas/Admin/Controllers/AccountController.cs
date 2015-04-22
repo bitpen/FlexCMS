@@ -1,4 +1,5 @@
-﻿using System;
+﻿using bCommon.Security;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -38,10 +39,15 @@ namespace FlexCMS.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult LogOn(String userName, string password)
         {
-            FormsAuthentication.SetAuthCookie("admin", true);
-            return RedirectToAction("Index", "Home");
+            var auth = new SQLUserPassAuth();
+            if (auth.Authenticate(userName, null, password))
+            {
+                FormsAuthentication.SetAuthCookie("admin", true);
+                return RedirectToAction("Index", "Home");
+            }
+            
 
-            //return View();
+            return View();
         }
 
 

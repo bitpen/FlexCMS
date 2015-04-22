@@ -1,4 +1,5 @@
-﻿using FlexCMS.BLL.Core;
+﻿
+using FlexCMS.BLL.Core;
 using FlexCMS.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace FlexCMS.Controllers
 
         public ActionResult Index()
         {
+            
             //var tagBO = new TagsBO(new BLL.UnitOfWork("jt"));
             //tagBO.Add("Tag3");
 
