@@ -1,22 +1,53 @@
 ﻿@model FlexCMS.Areas.Admin.Controllers.ArticlesController.NewArticle
 
-<div>
-    <label>Title</label>
-    @Html.TextBoxFor(m => m.Title, new { size = 80 })
-</div>
-<div>
-    <label>Permalink</label>
-    @Html.TextBoxFor(m => m.Permalink, new { size = 80 })
-</div>
-<div>
-    <label>Section</label>
-    @Html.DropDownList("SectionId", new SelectList(Model.AvailableSections.OrderBy(i => i.FullRoute), "SectionId", "FullRoute"), "")
-</div>
-<div>
-    <label>Publish Date</label>
-    @Html.TextBoxFor(m => m.PublishDate, new { size = 40 })
-</div>
-<div>
-    <label>Article Content</label>
-    @Html.TextAreaFor(m => m.Content, new { cols = 80, rows = 40 })
-</div>
+
+    <div>
+        <label>Title</label>
+        @Html.TextBoxFor(m => m.Title, new { size = 80 })
+    </div>
+    <div>
+        <label>Permalink</label>
+        @Html.TextBoxFor(m => m.Permalink, new { size = 80 })
+    </div>
+    <div>
+        <label>Section</label>
+        @Html.DropDownList("SectionId", new SelectList(Model.AvailableSections.OrderBy(i => i.FullRoute), "SectionId", "FullRoute"), "")
+    </div>
+    <div>
+        <label>Publish Date</label>
+        @Html.TextBoxFor(m => m.PublishDate, new { size = 40 })
+    </div>
+    <div>
+        <label>Article Content</label>
+        @Html.TextAreaFor(m => m.Content, new { cols = 80, rows = 40 })
+    </div>
+
+
+
+<script type="text/javascript">
+    window.addEventListener("load", function articleLoad(event) {
+        window.removeEventListener("load", articleLoad, false); 
+        articleForm.init();
+    }, false);
+
+    var articleForm = {
+        generateAlias: function () {
+            if(@((!String.IsNullOrEmpty(Model.Permalink)).ToString().ToLower())){
+                return;
+            }
+            var title = document.getElementById('Title').value;
+            var aliasEle = document.getElementById('Permalink');
+            var replaceRegEx = /[^0-9A-Za-z]/g;
+            title = title.replace(replaceRegEx, '-');
+            aliasEle.value = title;
+        },
+
+        init: function () {
+            articleForm.registerEvents();
+        },
+
+        registerEvents: function () {
+            document.getElementById('Title').addEventListener('keyup', articleForm.generateAlias);
+        }
+    };
+</script>
