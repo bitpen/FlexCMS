@@ -23,7 +23,7 @@
     </div>
 
 
-
+<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
 <script type="text/javascript">
     window.addEventListener("load", function articleLoad(event) {
         window.removeEventListener("load", articleLoad, false); 
@@ -44,8 +44,12 @@
 
         init: function () {
             articleForm.registerEvents();
+            articleForm.initContentArea();
         },
 
+        initContentArea : function(){
+            tinymce.init({selector:'#Content'});
+        },
         registerEvents: function () {
             document.getElementById('Title').addEventListener('keyup', articleForm.generateAlias);
         }
