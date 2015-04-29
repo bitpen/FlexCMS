@@ -54,16 +54,33 @@ namespace FlexCMS.Areas.Admin.Controllers
             add.Alias = article.Permalink;
             add.Content = article.Content;
             add.SectionId = article.SectionId;
-            if (article.PublishDate.HasValue)
+            if (!String.IsNullOrEmpty(article.PublishDate))
             {
-                add.PublishDate_utc = article.PublishDate.Value.ToUniversalTime();
+                var publishDate = DateTime.Parse(article.PublishDate);
+
+                
+                var hour = article.PublishHour;
+                var minute = article.PublishMinute;
+                var period = article.PublishPeriod;
+
+                if (hour != null && minute != null && period != null)
+                {
+                    if (period == 2)
+                    {
+                        hour += 12;
+                    }
+
+                    publishDate = new DateTime(publishDate.Year, publishDate.Month, publishDate.Day, (int)hour, (int)minute, 0);
+                }
+                
+                add.PublishDate_utc = publishDate.ToUniversalTime();
             }
             
-
+             ValidationErrors<ArticlesBO.AddArticleBLM.ValidatableFields, String> errors;
             using (var uow = new UnitOfWork("jt"))
             {
                 var articleBO = new ArticlesBO(uow);
-                ValidationErrors<ArticlesBO.AddArticleBLM.ValidatableFields, String> errors;
+               
                 var id = articleBO.Add(add, out errors);
 
                 if (id != null && !errors.Any())
@@ -81,6 +98,13 @@ namespace FlexCMS.Areas.Admin.Controllers
                 FullRoute = i.Route
             }).ToList();
 
+            var mappedErrors = errors.Map(_addArticleValidationMapper);
+            foreach (var error in mappedErrors.ToList())
+            {
+                ModelState.AddModelError(error.Key, error.Value);
+            }
+
+
             return View(article);
         }
 
@@ -96,7 +120,19 @@ namespace FlexCMS.Areas.Admin.Controllers
             view.SectionId = article.SectionId;
             if (article.PublishDate_utc.HasValue)
             {
-                view.PublishDate = article.PublishDate_utc.Value.ToLocalTime();
+                var localDate = article.PublishDate_utc.Value.ToLocalTime();
+                view.PublishDate = String.Format("{0:yyyy-MM-dd}", localDate);
+                view.PublishHour = localDate.Hour;
+                view.PublishMinute = localDate.Minute;
+                if (localDate.Hour > 12)
+                {
+                    view.PublishPeriod = 2;
+                    view.PublishHour -= 12;
+                }
+                else
+                {
+                    view.PublishPeriod = 1;
+                }
             }
             
             var sections = SectionsBO.Find();
@@ -122,9 +158,26 @@ namespace FlexCMS.Areas.Admin.Controllers
             update.Alias = article.Permalink;
             update.Content = article.Content;
             update.SectionId = article.SectionId;
-            if (article.PublishDate.HasValue)
+            if (!String.IsNullOrEmpty(article.PublishDate))
             {
-                update.PublishDate_utc = article.PublishDate.Value.ToUniversalTime();
+                var publishDate = DateTime.Parse(article.PublishDate);
+
+
+                var hour = article.PublishHour;
+                var minute = article.PublishMinute;
+                var period = article.PublishPeriod;
+
+                if (hour != null && minute != null && period != null)
+                {
+                    if (period == 2)
+                    {
+                        hour += 12;
+                    }
+
+                    publishDate = new DateTime(publishDate.Year, publishDate.Month, publishDate.Day, (int)hour, (int)minute, 0);
+                }
+
+                update.PublishDate_utc = publishDate.ToUniversalTime();
             }
             
             ValidationErrors<ArticlesBO.UpdateArticleBLM.ValidatableFields, String> errors;
@@ -203,21 +256,82 @@ namespace FlexCMS.Areas.Admin.Controllers
         /// </summary>
         public class NewArticle
         {
+            private static List<int> _hours;
+            private static List<int> _minutes;
+            private static Dictionary<int, string> _periods;
+
             public NewArticle()
             {
                 AvailableSections = new List<SectionsController.SectionListing>();
+            }
+
+            static NewArticle()
+            {
+                _hours = new List<int>();
+                for (int i = 1; i <= 12; i++)
+                {
+                    _hours.Add(i);
+                }
+
+                _minutes = new List<int>();
+                _minutes.Add(00);
+                _minutes.Add(15);
+                _minutes.Add(30);
+                _minutes.Add(45);
+
+                _periods = new Dictionary<int, string>();
+                _periods.Add(1, "AM");
+                _periods.Add(2, "PM");
             }
 
             public String Title { get; set; }
             public String Permalink { get; set; }
             public String Content { get; set; }
             public Guid? SectionId { get; set; }
-            public DateTime? PublishDate { get; set; }
+            public String PublishDate { get; set; }
+            public int? PublishHour { get; set; }
+            public int? PublishMinute { get; set;}
+            public int? PublishPeriod { get; set; } 
 
-            public List<SectionsController.SectionListing> AvailableSections;
+            public List<SectionsController.SectionListing> AvailableSections { get; set;}
+            public List<int> AvailableHours
+            {
+                get
+                {
+                    return _hours;
+                }
+            }
+            public List<int> AvailableMinutes
+            {
+                get
+                {
+                    return _minutes;
+                }
+            }
+            public Dictionary<int, string> AvailablePeriods
+            {
+                get
+                {
+                    return _periods;
+                }
+            }
         }
 
         #endregion View Models
+
+        #region Validation Mappers
+
+        private static Dictionary<ArticlesBO.AddArticleBLM.ValidatableFields, string> _addArticleValidationMapper;
+
+        static ArticlesController(){
+            _addArticleValidationMapper = new Dictionary<ArticlesBO.AddArticleBLM.ValidatableFields, string>();
+            _addArticleValidationMapper.Add(ArticlesBO.AddArticleBLM.ValidatableFields.General, string.Empty);
+            _addArticleValidationMapper.Add(ArticlesBO.AddArticleBLM.ValidatableFields.Title, "Title");
+            _addArticleValidationMapper.Add(ArticlesBO.AddArticleBLM.ValidatableFields.Alias, "Permalink");
+            _addArticleValidationMapper.Add(ArticlesBO.AddArticleBLM.ValidatableFields.SectionId, "SectionId");
+        }
+
+        #endregion
 
     }
 }

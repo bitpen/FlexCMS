@@ -1,6 +1,6 @@
 ﻿@model FlexCMS.Areas.Admin.Controllers.ArticlesController.NewArticle
 
-
+@Html.ValidationSummary()
     <div>
         <label>Title</label>
         @Html.TextBoxFor(m => m.Title, new { size = 80 })
@@ -15,7 +15,11 @@
     </div>
     <div>
         <label>Publish Date</label>
-        @Html.TextBoxFor(m => m.PublishDate, new { size = 40 })
+        <input type="date" name="PublishDate" id="PublishDate" value="@Model.PublishDate"/>
+        
+        @Html.DropDownList("PublishHour", new SelectList(Model.AvailableHours),"") : 
+        @Html.DropDownList("PublishMinute", new SelectList(Model.AvailableMinutes), "") 
+        @Html.DropDownList("PublishPeriod", new SelectList(Model.AvailablePeriods, "Key", "Value"), "")
     </div>
     <div>
         <label>Article Content</label>
