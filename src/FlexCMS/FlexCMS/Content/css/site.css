@@ -7,6 +7,8 @@
     padding: 0;
     font-size: 1.2em;
     font-weight: 600;
+    border-bottom: 1px solid #bbb;
+    box-shadow: 0px 0px 2px #bbb;
 }
 
 .pageHeader:after {
@@ -27,14 +29,36 @@
 }
 
 #manageNav{
-    margin-right:75px;
+    width:150px;
+    padding-right:0px;
+}
+
+#manageNav header{
+    margin: 15px 0 10px 0;
+    text-align:center;
+    width:100%;
+    display:block;
+    margin-bottom:15px;
+    padding-bottom:10px;
+    border-bottom: 1px solid #bbb;
+}
+
+#manageNav a{
+  height: 100%;
+  display: block;
+  margin-left:10px;
 }
 
 #content{
     width:100%;
     margin:0;
     padding:0;
-    margin-top:50px;
+    margin-top:0px;
+}
+
+#mainContent{
+    border-left: 1px solid #bbb;
+    padding-left:35px;
 }
 
 footer{
