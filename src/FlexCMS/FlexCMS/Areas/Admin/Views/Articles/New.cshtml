@@ -6,7 +6,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("New", "Articles", FormMethod.Post, new { autocomplete="off"}))
+@using (Html.BeginForm("New", "Articles", FormMethod.Post, new { autocomplete="off", @class="block-left"}))
 {
     @Html.Partial("_NewOrEdit", Model)
     <button type="submit">Save</button>

@@ -1,19 +1,19 @@
 ﻿@model FlexCMS.Areas.Admin.Controllers.ArticlesController.NewArticle
 
 @Html.ValidationSummary()
-    <div>
+    <div class="group">
         <label>Title</label>
         @Html.TextBoxFor(m => m.Title, new { size = 80 })
     </div>
-    <div>
+    <div class="group">
         <label>Permalink</label>
         @Html.TextBoxFor(m => m.Permalink, new { size = 80 })
     </div>
-    <div>
+    <div class="group">
         <label>Section</label>
         @Html.DropDownList("SectionId", new SelectList(Model.AvailableSections.OrderBy(i => i.FullRoute), "SectionId", "FullRoute"), "")
     </div>
-    <div>
+    <div class="group">
         <label>Publish Date</label>
         <input type="date" name="PublishDate" id="PublishDate" value="@Model.PublishDate"/>
         
@@ -21,7 +21,7 @@
         @Html.DropDownList("PublishMinute", new SelectList(Model.AvailableMinutes), "") 
         @Html.DropDownList("PublishPeriod", new SelectList(Model.AvailablePeriods, "Key", "Value"), "")
     </div>
-    <div>
+    <div class="group">
         <label>Article Content</label>
         @Html.TextAreaFor(m => m.Content, new { cols = 80, rows = 40 })
     </div>

@@ -2,20 +2,39 @@
 <html>
     <head>
         <title>Admin</title>
+        <link rel="stylesheet" href="@Url.Content("~/Content/css/styles.css")" >
+        <link rel="stylesheet" href="@Url.Content("~/Content/css/site.css")">
     </head>
     <body>
-        <header>
-            <nav>
-                @Html.ActionLink("Settings", "Settings", "Account", new { area = "Admin" }, null) <br /> 
-                [@Html.ActionLink("Log Out", "LogOff", "Account", new { area = "Admin" }, null)] <br /> 
+        <header class="pageHeader">
+            <nav id="personalNav">
+                @Html.ActionLink("Account", "Settings", "Account", new { area = "Admin" }, null) | 
+                [@Html.ActionLink("Log Out", "LogOff", "Account", new { area = "Admin" }, null)] 
+            </nav>
+            <nav id="adminNav">
+                <a href="@Url.Content("~/")">Home</a> | 
+                @Html.ActionLink("Dashboard", "Index", "Home", new { area = "Admin" }, null)
             </nav>
         </header>
-        <nav>
-            @Html.ActionLink("Articles", "Index", "Articles", new { area = "Admin" }, null) <br />
-            @Html.ActionLink("Pages", "Index", "Pages", new { area = "Admin" }, null) <br />
-            @Html.ActionLink("Sections", "Index", "Sections", new { area = "Admin" }, null) <br />
-        </nav>
-        @RenderBody()
+
+        <div id="content">
+            <nav id="manageNav" class="inline">
+                <header>
+                    <strong>Manage</strong>
+                </header>
+                @Html.ActionLink("Articles", "Index", "Articles", new { area = "Admin" }, null) <br />
+                @Html.ActionLink("Pages", "Index", "Pages", new { area = "Admin" }, null) <br />
+                @Html.ActionLink("Sections", "Index", "Sections", new { area = "Admin" }, null) <br />
+            </nav>
+            <div id="mainContent" class="inline top">
+                @RenderBody()
+            </div>
+        </div>
+
+        <footer>
+
+        </footer>
+        
     </body>
        
 </html>

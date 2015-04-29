@@ -6,7 +6,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Articles", FormMethod.Post, new { autocomplete = "off", @class = "block-left" }))
 {
     @Html.HiddenFor(m => m.ArticleId)
     @Html.Partial("_NewOrEdit", Model)

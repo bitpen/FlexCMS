@@ -1,0 +1,360 @@
+﻿*{
+  font-family: Georgia, Times, 'Times New Roman', serif;
+  color: rgb(82,82,82);
+}
+
+html,body{
+  margin:0;
+  padding:0;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.row{
+  margin-bottom:10px;
+}
+
+.col{
+  width:100%;
+  box-sizing: border-box;
+  float:left;
+  margin-left:3%;
+  margin-right:0;
+  background-color:#eee;
+  border-radius: 3px;
+  padding:8px 12px;
+}
+.col:first-child{
+  margin-left:0;
+}
+.col1{width:9.875%;}
+.col2{width:22.75%;}
+.col3{width:35.625%;}
+.col4{width:48.5%;}
+.col5{width:61.375%;}
+.col6{width:74.25%;}
+.col7{width:87.125%;}
+
+
+h1,h2,h3,h4,h5,h6{
+  font-style: normal;
+	font-variant: normal;
+	font-weight: 600;
+}
+
+h1{
+  font-size: 32px;
+	line-height:32px;
+}h2 {    margin-top: 20px;    font-size: 26px;    line-height: 26px;}
+
+h3{
+  margin-top:40px;
+  font-size: 22px;
+	line-height:22px;
+}
+
+h4{
+  font-size: 20px;
+	font-weight: 500;
+	line-height:20px;
+}
+
+h5{
+  font-size: 18px;
+	font-weight: 500;
+	line-height:18px;
+}
+
+h6{
+  font-size: 16px;
+	font-weight: 500;
+	line-height:16px;
+}
+
+p{
+  font-size:16px;
+  font-style:normal;
+  font-variant:normal;
+  line-height:1.5em;
+}
+
+a:link, a:visited, a:active, a:hover{
+  color:#0000ff;
+  font-weight:600;
+  text-decoration:none;
+}
+a:hover{
+  text-decoration:underline;
+  cursor:pointer;
+}
+
+code{
+  background-color:#444;
+  color:#fff;
+  font-weight:700;
+  font-size:13px;
+  padding:4px 6px;
+  border-radius:4px;
+}
+indent{
+  margin-left:30px;
+}
+.float-left{
+  float:left;
+}
+.float-right{
+  float:right;
+}
+.inline{
+  display:inline-block;
+}
+
+.top{
+  vertical-align:top;
+}
+.left{
+  text-align:left;
+}
+.right{
+  text-align:right;
+}
+
+
+input,select,textarea{
+  font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+	font-size: 16px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 20px;
+	padding: 4px 6px;
+}
+
+button, input[type=button],input[type=submit], a.button{
+  display: inline-block;
+  margin-top:-2px;
+  padding: 6px 12px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #1472d0;
+  font: 18px "Trebuchet MS", Arial, sans-serif bold;
+  font-weight: bold;
+  background-color: #1c77d2;
+  color: #f8f8f8;
+}
+button:hover, input[type=button]:hover, input[type=submit]:hover, a.button:hover{
+  background-color: #06c;
+  border: 1px solid #06c;
+  cursor: pointer;
+  text-decoration:none;
+}
+
+div.group{
+  margin-top:6px;
+  margin-bottom:6px;
+}
+
+form label{
+  font-weight:600;
+}
+
+form label.radio,
+form label.check{
+  font-weight:normal;
+}
+
+form label.left,
+form.stacked label.left,
+form.block-right label.left,
+form.block-left label.left{
+  width:9em;
+  text-align:left;
+}
+
+form label.right,
+form.stacked label.right,
+form.block-right label.right,
+form.block-left label.right{
+  width:9em;
+  text-align:right;
+}
+
+form.stacked label{
+  margin-top:10px;
+}
+
+form.stacked label,
+form.stacked input[type=text],
+form.stacked select{
+  display:block;
+}
+
+form.stacked button[type=submit],
+form.stacked input[type=submit]{
+  margin-top:10px;
+}
+
+form.block-left label{
+  display: inline-block;
+  width:9em;
+  text-align:left;
+}
+
+form.block-left label.radio,
+form.block-left label.check{
+  display:block;
+  width:auto;
+}
+
+form.block-left button[type=submit],
+form.block-left input[type=submit]{
+  margin-left:8em;
+  margin-top:10px;
+}
+
+form.block-right label{
+  display:inline-block;
+  width:9em;
+  text-align:right;
+}
+
+form.block-right label.radio,
+form.block-right label.check{
+  display:block;
+  width:auto;
+  text-align:left;
+}
+
+form.block-right button[type=submit],
+form.block-right input[type=submit]{
+  margin-left:8em;
+  margin-top:10px;
+}
+
+table{
+  border-collapse:collapse;
+}
+
+table thead th{
+  padding: 10px 40px;
+  text-align:center;
+  border-bottom: 3px solid #ccc;
+}
+
+table tbody td{
+  padding:10px 40px;
+  text-align:center;
+}
+
+
+table.vertical thead th + th,
+table.vertical tbody td + td{
+  border-left: 1px solid #ccc;
+}
+
+table.horizontal tbody tr + tr{
+  border-top: 1px solid #ccc;
+}
+
+table.inner thead th + th,
+table.inner tbody td + td{
+  border-left: 1px solid #ccc;
+}
+
+table.inner tbody tr + tr{
+  border-top: 1px solid #ccc;
+}
+
+table.outer{
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+
+table.full{
+  border: 1px solid #ccc;
+}
+
+table.full thead th + th,
+table.full tbody td + td{
+  border-left: 1px solid #ccc;
+}
+
+table.full tbody tr + tr{
+  border-top: 1px solid #ccc;
+}
+
+table.striped tbody tr:nth-child(even){
+  background-color: #ddd;
+}
+
+table.selectable tbody tr:hover{
+  background-color: #aaa;
+  cursor:pointer;
+}
+
+.highlight-box{
+  display:block;
+  border: 1px solid #ccc;
+  padding:10px 20px;
+  background-color:#eee;
+  border-radius:2px;
+}
+.highlight-box-title{
+  margin-top:-10px;
+  margin-left:-20px;
+  margin-right:-20px;
+  padding: 10px 20px;
+  background-color: #eee;
+  border-bottom:1px solid #ccc;
+  font-weight:600;
+}
+
+.box-subtitle{
+  margin-left:-20px;
+  margin-right:-20px;
+  margin-bottom:20px;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-top:1px solid #ccc;
+  border-bottom:1px solid #ccc;
+  font-weight:600;
+}
+
+.box{
+  display:block;
+  border: 1px solid #ccc;
+  padding:10px 20px;
+  background-color:#fff;
+  border-radius:4px;
+  margin-top:20px;
+  margin-bottom:20px;
+}
+.box-title{
+  margin-top:-10px;
+  margin-left:-20px;
+  margin-right:-20px;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom:1px solid #ccc;
+  font-weight:600;
+}
+
+.highlight-box-subtitle{
+  margin-left:-20px;
+  margin-right:-20px;
+  margin-bottom:20px;
+  padding: 10px 20px;
+  background-color: #eee;
+  border-top:1px solid #ccc;
+  border-bottom:1px solid #ccc;
+  font-weight:600;
+}.blockquote {    margin-left: 20px;    margin-top: 20px;    margin-bottom: 20px;    padding-left: 10px;    padding-top: 5px;    padding-bottom: 5px;    border-left: 5px solid #ccc;}
